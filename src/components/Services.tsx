@@ -6,42 +6,51 @@ const services = [
     icon: Building2,
     title: "General Construction",
     description: "Full-service construction solutions from concept to completion with expert project management.",
+    color: "emerald",
   },
   {
     icon: Hammer,
     title: "Renovations",
     description: "Transform your space with our comprehensive renovation services for residential and commercial properties.",
+    color: "amber",
   },
   {
     icon: Zap,
     title: "Electrical Services",
     description: "Licensed electricians providing safe, code-compliant electrical installations and repairs.",
+    color: "emerald",
   },
   {
     icon: Droplet,
     title: "Plumbing",
     description: "Professional plumbing services including installations, repairs, and maintenance.",
+    color: "amber",
   },
   {
     icon: Wrench,
     title: "Carpentry",
     description: "Expert carpentry work with attention to detail and superior craftsmanship.",
+    color: "emerald",
   },
   {
     icon: PaintBucket,
     title: "Painting",
     description: "Professional painting services for interior and exterior projects of any scale.",
+    color: "amber",
   },
 ];
 
 const Services = () => {
   return (
-    <section id="services" className="py-20 bg-muted/30">
+    <section id="services" className="py-32 bg-background">
       <div className="container px-4 mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Full-service construction firm with a dedicated team ready to bring your vision to life
+        <div className="text-center mb-20">
+          <span className="px-4 py-2 bg-emerald-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
+            What We Do
+          </span>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6">Our Services</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Comprehensive construction solutions tailored to your needs with a dedicated team of specialists
           </p>
         </div>
 
@@ -49,16 +58,26 @@ const Services = () => {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="border-2 hover:border-accent transition-all duration-300 hover:shadow-xl group"
+              className="group border-2 hover:border-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-2 bg-card overflow-hidden"
             >
               <CardHeader>
-                <div className="w-16 h-16 bg-accent/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
-                  <service.icon className="w-8 h-8 text-accent" />
+                <div className={`w-20 h-20 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 ${
+                  service.color === 'emerald' 
+                    ? 'bg-emerald-light group-hover:bg-primary' 
+                    : 'bg-amber-light group-hover:bg-accent'
+                }`}>
+                  <service.icon className={`w-10 h-10 transition-colors ${
+                    service.color === 'emerald'
+                      ? 'text-primary group-hover:text-white'
+                      : 'text-accent group-hover:text-foreground'
+                  }`} />
                 </div>
-                <CardTitle className="text-2xl">{service.title}</CardTitle>
+                <CardTitle className="text-2xl mb-3">{service.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">{service.description}</p>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  {service.description}
+                </p>
               </CardContent>
             </Card>
           ))}
