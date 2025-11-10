@@ -46,7 +46,7 @@ const Contact = () => {
       
       <div className="container px-4 mx-auto relative z-10">
         <div className="text-center mb-20">
-          <span className="px-4 py-2 bg-emerald-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
+          <span className="px-4 py-2 bg-blue-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
             Get In Touch
           </span>
           <h2 className="text-5xl md:text-6xl font-bold mb-6">Let's Build Together</h2>
@@ -62,7 +62,7 @@ const Contact = () => {
               className={`text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary group animate-on-scroll animate-on-scroll-delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
             >
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-emerald-light rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
+                <div className="w-16 h-16 bg-blue-light rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
                   <info.icon className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">

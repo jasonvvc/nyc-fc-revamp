@@ -14,7 +14,7 @@ const Hero = () => {
           {/* Content */}
           <div className="space-y-8">
             <div className="inline-block">
-              <span className="px-4 py-2 bg-emerald-light text-primary rounded-full text-sm font-semibold">
+              <span className="px-4 py-2 bg-blue-light text-primary rounded-full text-sm font-semibold">
                 15+ Years of Excellence
               </span>
             </div>

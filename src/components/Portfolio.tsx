@@ -95,7 +95,7 @@ const Portfolio = () => {
       
       <div className="container px-4 mx-auto relative z-10">
         <div className="text-center mb-16">
-          <span className="px-4 py-2 bg-emerald-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
+          <span className="px-4 py-2 bg-blue-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
             Our Work
           </span>
           <h2 className="text-5xl md:text-6xl font-bold mb-6">Project Portfolio</h2>

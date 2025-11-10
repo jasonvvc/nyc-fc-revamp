@@ -7,37 +7,37 @@ const services = [
     icon: Building2,
     title: "General Construction",
     description: "Full-service construction solutions from concept to completion with expert project management.",
-    color: "emerald",
+    color: "blue",
   },
   {
     icon: Hammer,
     title: "Renovations",
     description: "Transform your space with our comprehensive renovation services for residential and commercial properties.",
-    color: "amber",
+    color: "coral",
   },
   {
     icon: Zap,
     title: "Electrical Services",
     description: "Licensed electricians providing safe, code-compliant electrical installations and repairs.",
-    color: "emerald",
+    color: "blue",
   },
   {
     icon: Droplet,
     title: "Plumbing",
     description: "Professional plumbing services including installations, repairs, and maintenance.",
-    color: "amber",
+    color: "coral",
   },
   {
     icon: Wrench,
     title: "Carpentry",
     description: "Expert carpentry work with attention to detail and superior craftsmanship.",
-    color: "emerald",
+    color: "blue",
   },
   {
     icon: PaintBucket,
     title: "Painting",
     description: "Professional painting services for interior and exterior projects of any scale.",
-    color: "amber",
+    color: "coral",
   },
 ];
 
@@ -52,7 +52,7 @@ const Services = () => {
     >
       <div className="container px-4 mx-auto">
         <div className="text-center mb-20">
-          <span className="px-4 py-2 bg-emerald-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
+          <span className="px-4 py-2 bg-blue-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
             What We Do
           </span>
           <h2 className="text-5xl md:text-6xl font-bold mb-6">Our Services</h2>
@@ -69,14 +69,14 @@ const Services = () => {
             >
               <CardHeader>
                 <div className={`w-20 h-20 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 ${
-                  service.color === 'emerald' 
-                    ? 'bg-emerald-light group-hover:bg-primary' 
-                    : 'bg-amber-light group-hover:bg-accent'
+                  service.color === 'blue' 
+                    ? 'bg-blue-light group-hover:bg-primary' 
+                    : 'bg-coral-light group-hover:bg-accent'
                 }`}>
                   <service.icon className={`w-10 h-10 transition-colors ${
-                    service.color === 'emerald'
+                    service.color === 'blue'
                       ? 'text-primary group-hover:text-white'
-                      : 'text-accent group-hover:text-foreground'
+                      : 'text-accent group-hover:text-white'
                   }`} />
                 </div>
                 <CardTitle className="text-2xl mb-3">{service.title}</CardTitle>

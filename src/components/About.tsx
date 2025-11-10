@@ -27,7 +27,7 @@ const About = () => {
       <div className="container px-4 mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="px-4 py-2 bg-emerald-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
+            <span className="px-4 py-2 bg-blue-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
               About Us
             </span>
             <h2 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">
@@ -52,7 +52,7 @@ const About = () => {
               <ul className="space-y-5">
                 {highlights.map((highlight, index) => (
                   <li key={index} className="flex items-start gap-4 group">
-                    <div className="flex-shrink-0 w-8 h-8 bg-emerald-light rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
+                    <div className="flex-shrink-0 w-8 h-8 bg-blue-light rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
                       <CheckCircle2 className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
                     </div>
                     <span className="text-lg pt-0.5">{highlight}</span>
