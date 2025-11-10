@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const highlights = [
   "Over 15 years of construction excellence",
@@ -11,8 +12,14 @@ const highlights = [
 ];
 
 const About = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section id="about" className="py-32 bg-gradient-subtle relative overflow-hidden">
+    <section 
+      ref={ref as React.RefObject<HTMLElement>}
+      id="about" 
+      className={`py-32 bg-gradient-subtle relative overflow-hidden animate-on-scroll ${isVisible ? 'is-visible' : ''}`}
+    >
       {/* Decorative elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />

@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Hammer, Wrench, PaintBucket, Zap, Droplet, Building2 } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const services = [
   {
@@ -41,8 +42,14 @@ const services = [
 ];
 
 const Services = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section id="services" className="py-32 bg-background">
+    <section 
+      ref={ref as React.RefObject<HTMLElement>}
+      id="services" 
+      className={`py-32 bg-background animate-on-scroll ${isVisible ? 'is-visible' : ''}`}
+    >
       <div className="container px-4 mx-auto">
         <div className="text-center mb-20">
           <span className="px-4 py-2 bg-emerald-light text-primary rounded-full text-sm font-semibold inline-block mb-6">
@@ -58,7 +65,7 @@ const Services = () => {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="group border-2 hover:border-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-2 bg-card overflow-hidden"
+              className={`group border-2 hover:border-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-2 bg-card overflow-hidden animate-on-scroll animate-on-scroll-delay-${Math.min(index % 3 + 1, 4)} ${isVisible ? 'is-visible' : ''}`}
             >
               <CardHeader>
                 <div className={`w-20 h-20 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 ${

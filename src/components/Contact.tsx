@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Printer, ArrowRight } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const contactInfo = [
   {
@@ -30,8 +31,14 @@ const contactInfo = [
 ];
 
 const Contact = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section id="contact" className="py-32 bg-background relative overflow-hidden">
+    <section 
+      ref={ref as React.RefObject<HTMLElement>}
+      id="contact" 
+      className={`py-32 bg-background relative overflow-hidden animate-on-scroll ${isVisible ? 'is-visible' : ''}`}
+    >
       {/* Decorative background */}
       <div className="absolute inset-0 bg-gradient-subtle opacity-50" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -52,7 +59,7 @@ const Contact = () => {
           {contactInfo.map((info, index) => (
             <Card 
               key={index} 
-              className="text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary group"
+              className={`text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary group animate-on-scroll animate-on-scroll-delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
             >
               <CardHeader className="pb-4">
                 <div className="w-16 h-16 bg-emerald-light rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">

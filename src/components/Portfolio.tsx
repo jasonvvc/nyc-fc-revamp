@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Maximize2, Calendar, MapPin } from "lucide-react";
 import BeforeAfterSlider from "./BeforeAfterSlider";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 // Import project images
 import kitchenBefore from "@/assets/projects/kitchen-before.jpg";
@@ -73,6 +74,7 @@ const projects: Project[] = [
 const categories = ["All", "Residential", "Commercial"];
 
 const Portfolio = () => {
+  const { ref, isVisible } = useScrollAnimation();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -82,7 +84,11 @@ const Portfolio = () => {
       : projects.filter(p => p.category === selectedCategory);
 
   return (
-    <section id="portfolio" className="py-32 bg-gradient-subtle relative overflow-hidden">
+    <section 
+      ref={ref as React.RefObject<HTMLElement>}
+      id="portfolio" 
+      className={`py-32 bg-gradient-subtle relative overflow-hidden animate-on-scroll ${isVisible ? 'is-visible' : ''}`}
+    >
       {/* Decorative elements */}
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
@@ -115,10 +121,10 @@ const Portfolio = () => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, index) => (
             <Card 
               key={project.id}
-              className="group overflow-hidden border-2 hover:border-primary transition-all duration-300 cursor-pointer hover:shadow-2xl"
+              className={`group overflow-hidden border-2 hover:border-primary transition-all duration-300 cursor-pointer hover:shadow-2xl animate-on-scroll animate-on-scroll-delay-${index % 2 + 1} ${isVisible ? 'is-visible' : ''}`}
               onClick={() => setSelectedProject(project)}
             >
               <div className="relative aspect-[4/3] overflow-hidden">
