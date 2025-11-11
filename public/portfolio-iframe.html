@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Before/After Projects</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: col-resize;
+      user-select: none;
+      border-radius: 12px;
+    }
+
+    .slider-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .slider-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: white;
+      cursor: col-resize;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .slider-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: col-resize;
+    }
+
+    .card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      transform: translateY(-4px);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #f3f4f6;
+      color: #1f2937;
+    }
+
+    .badge-primary {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid #e5e7eb;
+      background: white;
+      color: #1f2937;
+    }
+
+    .btn:hover {
+      background: #f9fafb;
+      border-color: #3b82f6;
+    }
+
+    .btn-active {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 1200px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .label-badge {
+      position: absolute;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .label-before {
+      top: 16px;
+      left: 16px;
+      background: #6b7280;
+      color: white;
+    }
+
+    .label-after {
+      top: 16px;
+      right: 16px;
+      background: #3b82f6;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useRef, useEffect } = React;
+
+    // Project data
+    const projects = [
+      {
+        id: 1,
+        title: "Modern Kitchen Renovation",
+        category: "Residential",
+        location: "Brooklyn Heights, NY",
+        date: "2024",
+        beforeImage: "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&q=80",
+        afterImage: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+        description: "Complete kitchen transformation with custom cabinetry, marble countertops, and modern lighting.",
+      },
+      {
+        id: 2,
+        title: "Corporate Office Redesign",
+        category: "Commercial",
+        location: "Manhattan, NY",
+        date: "2024",
+        beforeImage: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=80",
+        afterImage: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
+        description: "Full office renovation featuring open floor plan, contemporary design, and collaborative spaces.",
+      },
+      {
+        id: 3,
+        title: "Luxury Bathroom Remodel",
+        category: "Residential",
+        location: "Park Slope, NY",
+        date: "2023",
+        beforeImage: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80",
+        afterImage: "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800&q=80",
+        description: "High-end bathroom renovation with marble finishes, custom fixtures, and spa-like amenities.",
+      },
+      {
+        id: 4,
+        title: "Building Exterior Restoration",
+        category: "Commercial",
+        location: "Downtown Brooklyn, NY",
+        date: "2023",
+        beforeImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+        afterImage: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&q=80",
+        description: "Complete exterior transformation with modern facade design and updated architectural elements.",
+      },
+    ];
+
+    const categories = ["All", "Residential", "Commercial"];
+
+    // BeforeAfterSlider Component
+    function BeforeAfterSlider({ beforeImage, afterImage }) {
+      const [sliderPosition, setSliderPosition] = useState(50);
+      const [isDragging, setIsDragging] = useState(false);
+      const containerRef = useRef(null);
+
+      const handleMove = (clientX) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+        const percentage = (x / rect.width) * 100;
+        setSliderPosition(percentage);
+      };
+
+      const handleMouseDown = () => setIsDragging(true);
+      const handleMouseUp = () => setIsDragging(false);
+
+      useEffect(() => {
+        const handleMouseMove = (e) => {
+          if (!isDragging) return;
+          handleMove(e.clientX);
+        };
+
+        const handleTouchMove = (e) => {
+          if (!isDragging) return;
+          handleMove(e.touches[0].clientX);
+        };
+
+        if (isDragging) {
+          document.addEventListener("mousemove", handleMouseMove);
+          document.addEventListener("mouseup", handleMouseUp);
+          document.addEventListener("touchmove", handleTouchMove);
+          document.addEventListener("touchend", handleMouseUp);
+        }
+
+        return () => {
+          document.removeEventListener("mousemove", handleMouseMove);
+          document.removeEventListener("mouseup", handleMouseUp);
+          document.removeEventListener("touchmove", handleTouchMove);
+          document.removeEventListener("touchend", handleMouseUp);
+        };
+      }, [isDragging]);
+
+      return (
+        <div 
+          ref={containerRef}
+          className="slider-container"
+          style={{ height: '100%' }}
+          onMouseDown={handleMouseDown}
+          onTouchStart={() => setIsDragging(true)}
+        >
+          {/* After Image */}
+          <div style={{ position: 'absolute', inset: 0 }}>
+            <img 
+              src={afterImage} 
+              alt="After" 
+              className="slider-image"
+            />
+            <div className="label-badge label-after">After</div>
+          </div>
+
+          {/* Before Image */}
+          <div 
+            style={{ 
+              position: 'absolute', 
+              inset: 0, 
+              overflow: 'hidden',
+              clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`
+            }}
+          >
+            <img 
+              src={beforeImage} 
+              alt="Before" 
+              className="slider-image"
+            />
+            <div className="label-badge label-before">Before</div>
+          </div>
+
+          {/* Slider */}
+          <div 
+            className="slider-line"
+            style={{ left: `${sliderPosition}%` }}
+          >
+            <div className="slider-handle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Portfolio Component
+    function Portfolio() {
+      const [selectedCategory, setSelectedCategory] = useState("All");
+      const [selectedProject, setSelectedProject] = useState(null);
+
+      const filteredProjects = selectedCategory === "All" 
+        ? projects 
+        : projects.filter(p => p.category === selectedCategory);
+
+      return (
+        <div style={{ padding: '80px 16px', background: 'linear-gradient(180deg, #f9fafb 0%, #ffffff 100%)' }}>
+          <div className="container">
+            {/* Header */}
+            <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+              <span className="badge badge-primary" style={{ fontSize: '14px', marginBottom: '24px' }}>
+                Our Work
+              </span>
+              <h2 style={{ fontSize: '48px', fontWeight: 'bold', marginBottom: '24px', color: '#1f2937' }}>
+                Project Portfolio
+              </h2>
+              <p style={{ fontSize: '18px', color: '#6b7280', maxWidth: '768px', margin: '0 auto 40px' }}>
+                Explore our completed projects showcasing quality craftsmanship and attention to detail
+              </p>
+
+              {/* Category Filters */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '12px' }}>
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    className={`btn ${selectedCategory === category ? 'btn-active' : ''}`}
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Projects Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
+              {filteredProjects.map((project) => (
+                <div 
+                  key={project.id}
+                  className="card"
+                  onClick={() => setSelectedProject(project)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div style={{ position: 'relative', aspectRatio: '4/3' }}>
+                    <BeforeAfterSlider
+                      beforeImage={project.beforeImage}
+                      afterImage={project.afterImage}
+                    />
+                  </div>
+
+                  <div style={{ padding: '24px' }}>
+                    <span className="badge" style={{ marginBottom: '12px' }}>
+                      {project.category}
+                    </span>
+                    <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '12px', color: '#1f2937' }}>
+                      {project.title}
+                    </h3>
+                    <div style={{ display: 'flex', gap: '16px', fontSize: '14px', color: '#6b7280', marginBottom: '12px' }}>
+                      <span>📍 {project.location}</span>
+                      <span>📅 {project.date}</span>
+                    </div>
+                    <p style={{ color: '#6b7280', lineHeight: '1.6' }}>
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Modal */}
+          {selectedProject && (
+            <div 
+              className={`modal ${selectedProject ? 'active' : ''}`}
+              onClick={() => setSelectedProject(null)}
+            >
+              <div 
+                className="modal-content"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div style={{ position: 'relative', aspectRatio: '16/10' }}>
+                  <BeforeAfterSlider
+                    beforeImage={selectedProject.beforeImage}
+                    afterImage={selectedProject.afterImage}
+                  />
+                </div>
+                
+                <div style={{ padding: '32px' }}>
+                  <div style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
+                    <span className="badge">{selectedProject.category}</span>
+                    <span className="badge">📅 {selectedProject.date}</span>
+                    <span className="badge">📍 {selectedProject.location}</span>
+                  </div>
+                  
+                  <h2 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>
+                    {selectedProject.title}
+                  </h2>
+                  <p style={{ fontSize: '18px', color: '#6b7280', lineHeight: '1.6' }}>
+                    {selectedProject.description}
+                  </p>
+
+                  <button 
+                    className="btn"
+                    onClick={() => setSelectedProject(null)}
+                    style={{ marginTop: '24px' }}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // Render
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<Portfolio />);
+  </script>
+  
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</body>
+</html>
