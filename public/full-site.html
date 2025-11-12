@@ -7,7 +7,7 @@
   <meta name="description" content="First Construction Zone delivers exceptional renovation and development services across Brooklyn with precision and professionalism. Over 15 years of excellence.">
   
   <style>
-    /* CSS Variables - Design System */
+    /* CSS Variables - Design System (Exact match from index.css) */
     :root {
       --background: 0 0% 100%;
       --foreground: 215 25% 15%;
@@ -44,96 +44,1735 @@
       overflow-x: hidden;
     }
 
-    .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 1rem; }
 
-    /* Navigation - Fixed responsive header */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: all 0.3s; }
-    nav.scrolled { background: hsla(var(--background), 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid hsl(var(--border)); box-shadow: var(--shadow-md); }
-    .nav-content { display: flex; align-items: center; justify-content: space-between; height: 80px; }
-    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: hsl(var(--foreground)); }
-    .nav-logo-icon { width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px; box-shadow: var(--shadow-blue); }
-    .nav-links { display: none; align-items: center; gap: 2rem; }
-    .nav-links a { color: hsl(var(--foreground)); text-decoration: none; font-weight: 500; font-size: 18px; position: relative; transition: color 0.3s; }
-    .nav-links a:hover { color: hsl(var(--primary)); }
-    .mobile-menu-btn { display: flex; width: 40px; height: 40px; border: none; background: none; cursor: pointer; }
-    .mobile-menu { display: none; padding: 1.5rem 0; border-top: 1px solid hsl(var(--border)); background: hsla(var(--background), 0.95); }
+    /* Navigation */
+    nav { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      z-index: 1000; 
+      transition: all 0.3s;
+      background: transparent;
+    }
+    nav.scrolled { 
+      background: hsla(var(--background), 0.95); 
+      backdrop-filter: blur(12px); 
+      border-bottom: 1px solid hsl(var(--border)); 
+      box-shadow: var(--shadow-md); 
+    }
+    .nav-content { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      height: 80px; 
+    }
+    .nav-logo { 
+      display: flex; 
+      align-items: center; 
+      gap: 0.75rem; 
+      text-decoration: none; 
+      color: hsl(var(--foreground)); 
+    }
+    .nav-logo-icon { 
+      width: 40px; 
+      height: 40px; 
+      background: var(--gradient-primary); 
+      border-radius: 12px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      color: white; 
+      font-weight: bold; 
+      font-size: 18px; 
+      box-shadow: var(--shadow-blue); 
+    }
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .nav-logo-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1;
+    }
+    .nav-logo-subtitle {
+      font-size: 0.75rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1;
+      display: none;
+    }
+    .nav-links { 
+      display: none;
+      align-items: center; 
+      gap: 2rem; 
+    }
+    .nav-links button { 
+      color: hsl(var(--foreground)); 
+      background: none;
+      border: none;
+      font-weight: 500; 
+      font-size: 1.125rem; 
+      position: relative; 
+      transition: color 0.3s;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .nav-links button:hover { color: hsl(var(--primary)); }
+    .nav-links button::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: hsl(var(--primary));
+      transition: width 0.3s;
+    }
+    .nav-links button:hover::after {
+      width: 100%;
+    }
+    .mobile-menu-btn { 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; 
+      height: 40px; 
+      border: none; 
+      background: none; 
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .mobile-menu-btn:hover {
+      background: hsl(var(--muted));
+    }
+    .mobile-menu { 
+      display: none; 
+      padding: 1.5rem 0; 
+      border-top: 1px solid hsl(var(--border)); 
+      background: hsla(var(--background), 0.95);
+      backdrop-filter: blur(12px);
+    }
     .mobile-menu.open { display: block; }
-    .mobile-menu a { display: block; padding: 0.75rem 1rem; color: hsl(var(--foreground)); text-decoration: none; font-weight: 500; }
+    .mobile-menu button { 
+      display: block; 
+      width: 100%;
+      padding: 0.75rem 1rem; 
+      color: hsl(var(--foreground)); 
+      background: none;
+      border: none;
+      text-align: left;
+      font-weight: 500;
+      font-size: 1.125rem;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+    .mobile-menu button:hover {
+      background: hsl(var(--muted));
+      color: hsl(var(--primary));
+    }
 
     /* Buttons */
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 2rem; font-size: 16px; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; text-decoration: none; transition: all 0.3s; }
-    .btn-modern { background: var(--gradient-primary); color: white; box-shadow: var(--shadow-blue); }
-    .btn-modern:hover { box-shadow: var(--shadow-xl); transform: scale(1.05); }
-    .btn-outline { border: 2px solid hsl(var(--primary)); color: hsl(var(--primary)); background: hsl(var(--background)); }
-    .btn-outline:hover { background: hsl(var(--primary)); color: white; }
-    .btn-lg { height: 44px; padding: 0 2rem; font-size: 18px; }
-    .badge { display: inline-flex; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 14px; font-weight: 600; }
-    .badge-primary { background: hsl(var(--blue-light)); color: hsl(var(--primary)); }
+    .btn { 
+      display: inline-flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 0.5rem; 
+      padding: 0.75rem 2rem; 
+      font-size: 1rem; 
+      font-weight: 600; 
+      border-radius: 8px; 
+      border: none; 
+      cursor: pointer; 
+      text-decoration: none; 
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+    .btn-modern { 
+      background: var(--gradient-primary); 
+      color: white; 
+      box-shadow: var(--shadow-blue); 
+    }
+    .btn-modern:hover { 
+      box-shadow: var(--shadow-xl); 
+      transform: scale(1.05); 
+    }
+    .btn-outline { 
+      border: 2px solid hsl(var(--primary)); 
+      color: hsl(var(--primary)); 
+      background: hsl(var(--background)); 
+    }
+    .btn-outline:hover { 
+      background: hsl(var(--primary)); 
+      color: white; 
+    }
+    .btn-accent {
+      background: var(--gradient-accent);
+      color: white;
+    }
+    .btn-accent:hover {
+      box-shadow: var(--shadow-xl);
+      transform: scale(1.05);
+    }
+    .btn-lg { 
+      height: 44px; 
+      padding: 0 2rem; 
+      font-size: 1.125rem; 
+    }
+    .badge { 
+      display: inline-flex; 
+      padding: 0.5rem 1rem; 
+      border-radius: 9999px; 
+      font-size: 0.875rem; 
+      font-weight: 600; 
+    }
+    .badge-primary { 
+      background: hsl(var(--blue-light)); 
+      color: hsl(var(--primary)); 
+    }
+    .badge-secondary {
+      background: hsl(var(--secondary));
+      color: hsl(var(--secondary-foreground));
+    }
+    .badge-outline {
+      border: 1px solid hsl(var(--border));
+      color: hsl(var(--foreground));
+    }
 
-    /* Hero Section - Responsive full-height section */
-    .hero { min-height: 100vh; display: flex; align-items: center; background: var(--gradient-subtle); position: relative; overflow: hidden; padding-top: 80px; }
-    .hero-content { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; padding: 5rem 0; position: relative; z-index: 10; }
-    .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: bold; line-height: 1.1; }
-    .hero-title-gradient { display: block; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-buttons { display: flex; flex-direction: column; gap: 1rem; }
-    .hero-stats { display: flex; gap: 2rem; padding-top: 2rem; border-top: 1px solid hsl(var(--border)); }
-    .hero-image { display: none; }
+    /* Hero Section */
+    .hero { 
+      min-height: 100vh; 
+      display: flex; 
+      align-items: center; 
+      background: var(--gradient-subtle); 
+      position: relative; 
+      overflow: hidden; 
+      padding-top: 80px; 
+    }
+    .hero-decorative-1 {
+      position: absolute;
+      top: 5rem;
+      right: 2.5rem;
+      width: 18rem;
+      height: 18rem;
+      background: hsla(var(--primary), 0.05);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    .hero-decorative-2 {
+      position: absolute;
+      bottom: 5rem;
+      left: 2.5rem;
+      width: 24rem;
+      height: 24rem;
+      background: hsla(var(--accent), 0.05);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    .hero-content { 
+      display: grid; 
+      grid-template-columns: 1fr; 
+      gap: 3rem; 
+      align-items: center; 
+      padding: 5rem 0; 
+      position: relative; 
+      z-index: 10; 
+    }
+    .hero-title { 
+      font-size: clamp(3rem, 8vw, 6rem); 
+      font-weight: bold; 
+      line-height: 1.1; 
+      margin: 1.5rem 0;
+    }
+    .hero-title-gradient { 
+      display: block; 
+      background: var(--gradient-primary); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-description {
+      font-size: 1.25rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.6;
+      max-width: 40rem;
+    }
+    .hero-buttons { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 1rem; 
+      padding-top: 1rem;
+    }
+    .hero-stats { 
+      display: flex; 
+      gap: 2rem; 
+      padding-top: 2rem; 
+      border-top: 1px solid hsl(var(--border)); 
+      margin-top: 2rem;
+    }
+    .hero-stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: hsl(var(--primary));
+    }
+    .hero-stat-label {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+    }
+    .hero-image-container { 
+      display: none; 
+      position: relative;
+    }
+    .hero-image-blur {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-primary);
+      border-radius: 1.5rem;
+      filter: blur(2rem);
+      opacity: 0.2;
+      transform: rotate(6deg);
+    }
+    .hero-image {
+      position: relative;
+      border-radius: 1.5rem;
+      box-shadow: var(--shadow-xl);
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+    }
 
-    /* Services - Responsive grid */
-    .services { padding: 8rem 0; }
-    .section-title { font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: bold; margin-bottom: 1.5rem; text-align: center; }
-    .services-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-    .service-card { background: hsl(var(--card)); border: 2px solid hsl(var(--border)); border-radius: 1rem; padding: 2rem; transition: all 0.3s; }
-    .service-card:hover { border-color: hsl(var(--primary)); box-shadow: var(--shadow-xl); transform: translateY(-8px); }
+    /* Services Section */
+    .services { 
+      padding: 8rem 0; 
+      background: hsl(var(--background));
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    .section-title { 
+      font-size: clamp(2.5rem, 5vw, 3.75rem); 
+      font-weight: bold; 
+      margin-bottom: 1.5rem;
+    }
+    .section-description {
+      font-size: 1.25rem;
+      color: hsl(var(--muted-foreground));
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+    .services-grid { 
+      display: grid; 
+      grid-template-columns: 1fr; 
+      gap: 2rem; 
+    }
+    .service-card { 
+      background: hsl(var(--card)); 
+      border: 2px solid hsl(var(--border)); 
+      border-radius: 1rem; 
+      padding: 2rem; 
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+    .service-card:hover { 
+      border-color: hsl(var(--primary)); 
+      box-shadow: var(--shadow-xl); 
+      transform: translateY(-8px); 
+    }
+    .service-icon {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s;
+    }
+    .service-icon-blue {
+      background: hsl(var(--blue-light));
+      color: hsl(var(--primary));
+    }
+    .service-icon-coral {
+      background: hsl(var(--coral-light));
+      color: hsl(var(--accent));
+    }
+    .service-card:hover .service-icon-blue {
+      background: hsl(var(--primary));
+      color: white;
+    }
+    .service-card:hover .service-icon-coral {
+      background: hsl(var(--accent));
+      color: white;
+    }
+    .service-icon svg {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    .service-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .service-description {
+      font-size: 1.125rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.6;
+    }
 
-    /* Portfolio - Two cards per row on desktop */
-    .portfolio { padding: 8rem 0; background: var(--gradient-subtle); position: relative; }
-    .portfolio-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 4rem; }
-    .project-card { background: hsl(var(--card)); border: 2px solid hsl(var(--border)); border-radius: 1rem; overflow: hidden; cursor: pointer; transition: all 0.3s; }
-    .project-card:hover { border-color: hsl(var(--primary)); box-shadow: var(--shadow-xl); }
-    .before-after-slider { position: relative; width: 100%; height: 100%; aspect-ratio: 4/3; overflow: hidden; cursor: col-resize; user-select: none; }
+    /* Portfolio Section */
+    .portfolio { 
+      padding: 8rem 0; 
+      background: var(--gradient-subtle); 
+      position: relative; 
+      overflow: hidden;
+    }
+    .portfolio-decorative-1 {
+      position: absolute;
+      top: 25%;
+      right: 0;
+      width: 24rem;
+      height: 24rem;
+      background: hsla(var(--primary), 0.05);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    .portfolio-decorative-2 {
+      position: absolute;
+      bottom: 25%;
+      left: 0;
+      width: 24rem;
+      height: 24rem;
+      background: hsla(var(--accent), 0.05);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    .portfolio-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+    .portfolio-grid { 
+      display: grid; 
+      grid-template-columns: 1fr; 
+      gap: 2rem; 
+      margin-top: 4rem;
+      position: relative;
+      z-index: 10;
+    }
+    .project-card { 
+      background: hsl(var(--card)); 
+      border: 2px solid hsl(var(--border)); 
+      border-radius: 1rem; 
+      overflow: hidden; 
+      cursor: pointer; 
+      transition: all 0.3s; 
+    }
+    .project-card:hover { 
+      border-color: hsl(var(--primary)); 
+      box-shadow: var(--shadow-xl); 
+    }
+    .project-image-container {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+    .project-card:hover .project-overlay {
+      opacity: 1;
+    }
+    .project-info {
+      padding: 1.5rem;
+    }
+    .project-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .project-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.75rem;
+      transition: color 0.3s;
+    }
+    .project-card:hover .project-title {
+      color: hsl(var(--primary));
+    }
+    .project-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      margin-bottom: 0.75rem;
+    }
+    .project-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .project-meta svg {
+      width: 1rem;
+      height: 1rem;
+    }
+    .project-description {
+      color: hsl(var(--muted-foreground));
+      line-height: 1.6;
+    }
 
-    /* Contact & Footer */
-    .contact { padding: 8rem 0; }
-    .contact-cards { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem; }
-    footer { background: hsl(var(--primary)); color: white; padding: 4rem 0 2rem; }
+    /* Before/After Slider */
+    .before-after-slider { 
+      position: relative; 
+      width: 100%; 
+      height: 100%; 
+      overflow: hidden; 
+      cursor: col-resize; 
+      user-select: none;
+      border-radius: 0.75rem;
+    }
+    .slider-after {
+      position: absolute;
+      inset: 0;
+    }
+    .slider-after img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+    .slider-label-after {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: hsl(var(--primary));
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+    }
+    .slider-before {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .slider-before img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+    .slider-label-before {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: hsl(var(--muted));
+      color: hsl(var(--foreground));
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+    }
+    .slider-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: white;
+      box-shadow: var(--shadow-xl);
+      cursor: col-resize;
+    }
+    .slider-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 3rem;
+      height: 3rem;
+      background: white;
+      border-radius: 50%;
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slider-handle svg {
+      position: absolute;
+      width: 1.25rem;
+      height: 1.25rem;
+      color: hsl(var(--primary));
+    }
+    .slider-handle svg:first-child {
+      left: 0.25rem;
+    }
+    .slider-handle svg:last-child {
+      right: 0.25rem;
+    }
+
+    /* About Section */
+    .about {
+      padding: 8rem 0;
+      background: var(--gradient-subtle);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-decorative-1 {
+      position: absolute;
+      top: 0;
+      left: 25%;
+      width: 24rem;
+      height: 24rem;
+      background: hsla(var(--primary), 0.05);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    .about-decorative-2 {
+      position: absolute;
+      bottom: 0;
+      right: 25%;
+      width: 24rem;
+      height: 24rem;
+      background: hsla(var(--accent), 0.05);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+    .about-text p {
+      font-size: 1.25rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .about-card {
+      background: hsl(var(--card));
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      border: 2px solid hsl(var(--border));
+      box-shadow: var(--shadow-md);
+    }
+    .about-card h3 {
+      font-size: 1.875rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+    .highlights-list {
+      list-style: none;
+      padding: 0;
+    }
+    .highlights-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .highlight-icon {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      background: hsl(var(--blue-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    .highlights-list li:hover .highlight-icon {
+      background: hsl(var(--primary));
+    }
+    .highlight-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: hsl(var(--primary));
+      transition: color 0.3s;
+    }
+    .highlights-list li:hover .highlight-icon svg {
+      color: white;
+    }
+    .highlights-list span {
+      font-size: 1.125rem;
+      padding-top: 0.125rem;
+    }
+
+    /* Contact Section */
+    .contact { 
+      padding: 8rem 0;
+      background: hsl(var(--background));
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-decorative {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-subtle);
+      opacity: 0.5;
+    }
+    .contact-decorative-1 {
+      position: absolute;
+      top: 25%;
+      right: 0;
+      width: 24rem;
+      height: 24rem;
+      background: hsla(var(--primary), 0.1);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    .contact-decorative-2 {
+      position: absolute;
+      bottom: 25%;
+      left: 0;
+      width: 24rem;
+      height: 24rem;
+      background: hsla(var(--accent), 0.1);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    .contact-cards { 
+      display: grid; 
+      grid-template-columns: 1fr; 
+      gap: 1.5rem; 
+      margin-top: 3rem;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 10;
+    }
+    .contact-card {
+      text-align: center;
+      padding: 2rem;
+      background: hsl(var(--card));
+      border: 2px solid hsl(var(--border));
+      border-radius: 1rem;
+      transition: all 0.3s;
+    }
+    .contact-card:hover {
+      border-color: hsl(var(--primary));
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-4px);
+    }
+    .contact-icon {
+      width: 4rem;
+      height: 4rem;
+      background: hsl(var(--blue-light));
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      transition: all 0.3s;
+    }
+    .contact-card:hover .contact-icon {
+      background: hsl(var(--primary));
+    }
+    .contact-icon svg {
+      width: 2rem;
+      height: 2rem;
+      color: hsl(var(--primary));
+      transition: color 0.3s;
+    }
+    .contact-card:hover .contact-icon svg {
+      color: white;
+    }
+    .contact-card h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: hsl(var(--muted-foreground));
+      margin-bottom: 1rem;
+    }
+    .contact-card p {
+      font-weight: bold;
+      font-size: 1.125rem;
+      margin-bottom: 0.25rem;
+    }
+    .contact-card .subdetails {
+      color: hsl(var(--muted-foreground));
+    }
+    .contact-cta {
+      max-width: 64rem;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+    .cta-card {
+      border: none;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+    .cta-content {
+      background: var(--gradient-primary);
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-decorative-1 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 10rem;
+      height: 10rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      margin-right: -5rem;
+      margin-top: -5rem;
+    }
+    .cta-decorative-2 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 8rem;
+      height: 8rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      margin-left: -4rem;
+      margin-bottom: -4rem;
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 10;
+    }
+    .cta-content h3 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+    .cta-content p {
+      font-size: 1.25rem;
+      margin-bottom: 2.5rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 42rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    footer { 
+      background: hsl(var(--primary)); 
+      color: white; 
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-decorative-1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 24rem;
+      height: 24rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      margin-left: -12rem;
+      margin-top: -12rem;
+    }
+    .footer-decorative-2 {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 18rem;
+      height: 18rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      margin-right: -9rem;
+      margin-bottom: -9rem;
+    }
+    .footer-content {
+      padding: 4rem 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      position: relative;
+      z-index: 10;
+    }
+    .footer-company {
+      grid-column: span 1;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .footer-logo-icon {
+      width: 3rem;
+      height: 3rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .footer-logo-icon svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+    .footer-logo-text h3 {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .footer-logo-text p {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .footer-description {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.125rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      max-width: 28rem;
+    }
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+    .social-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+      font-size: 1.125rem;
+    }
+    .social-icon:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .footer-section h4 {
+      font-size: 1.125rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+    .footer-links a,
+    .footer-links button {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+      font-size: inherit;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover,
+    .footer-links button:hover {
+      color: white;
+    }
+    .footer-contact-list {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-contact-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .footer-contact-list svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+    .footer-contact-list span {
+      color: rgba(255,255,255,0.8);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 2rem 0;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    .footer-bottom p {
+      color: rgba(255,255,255,0.7);
+    }
+    .footer-bottom span {
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 9999;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+    .modal.open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: hsl(var(--card));
+      border-radius: 1rem;
+      max-width: 72rem;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      animation: modalFadeIn 0.3s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: hsl(var(--card));
+      border: 2px solid hsl(var(--border));
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s;
+    }
+    .modal-close:hover {
+      background: hsl(var(--primary));
+      border-color: hsl(var(--primary));
+    }
+    .modal-close:hover svg {
+      color: white;
+    }
+    .modal-close svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: hsl(var(--foreground));
+    }
+    .modal-image {
+      position: relative;
+      aspect-ratio: 16/10;
+    }
+    .modal-body {
+      padding: 2rem;
+    }
+    .modal-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .modal-body h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .modal-body p {
+      font-size: 1.25rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.6;
+    }
+
+    /* Scroll animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* Responsive breakpoints */
-    @media (min-width: 640px) { .hero-buttons { flex-direction: row; } }
+    @media (min-width: 640px) { 
+      .hero-buttons { flex-direction: row; }
+      .nav-logo-subtitle { display: block; }
+      .container { padding: 0 2rem; }
+    }
     @media (min-width: 768px) { 
       .services-grid { grid-template-columns: repeat(2, 1fr); }
       .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
       .contact-cards { grid-template-columns: repeat(2, 1fr); }
+      .about-content { grid-template-columns: 1fr 1fr; gap: 4rem; }
+      .footer-content { grid-template-columns: repeat(2, 1fr); }
+      .cta-content { padding: 4rem; }
     }
     @media (min-width: 1024px) { 
       .nav-links { display: flex; }
       .mobile-menu-btn { display: none; }
+      .mobile-menu { display: none !important; }
       .hero-content { grid-template-columns: 1fr 1fr; }
-      .hero-image { display: block; }
+      .hero-image-container { display: block; }
       .services-grid { grid-template-columns: repeat(3, 1fr); }
       .contact-cards { grid-template-columns: repeat(4, 1fr); }
+      .footer-content { grid-template-columns: 2fr 1fr 1fr; }
+      .footer-company { grid-column: span 1; }
     }
   </style>
 </head>
 <body>
-  <nav id="nav"><div class="container"><div class="nav-content"><a href="#home" class="nav-logo"><div class="nav-logo-icon">F</div></a><div class="nav-links"><a href="#home">Home</a><a href="#services">Services</a><a href="#portfolio">Portfolio</a><a href="#about">About</a><a href="#contact">Contact</a><button class="btn btn-modern btn-lg">Get Quote</button></div><button class="mobile-menu-btn" id="menu-btn">☰</button></div></div></nav>
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="container">
+      <div class="nav-content">
+        <a href="#home" class="nav-logo">
+          <div class="nav-logo-icon">F</div>
+          <div class="nav-logo-text">
+            <span class="nav-logo-title">FCZ</span>
+            <span class="nav-logo-subtitle">First Construction Zone</span>
+          </div>
+        </a>
+        <div class="nav-links">
+          <button onclick="scrollToSection('home')">Home</button>
+          <button onclick="scrollToSection('services')">Services</button>
+          <button onclick="scrollToSection('portfolio')">Portfolio</button>
+          <button onclick="scrollToSection('about')">About</button>
+          <button onclick="scrollToSection('contact')">Contact</button>
+          <button class="btn btn-modern btn-lg">Get Quote</button>
+        </div>
+        <button class="mobile-menu-btn" id="menu-btn" onclick="toggleMobileMenu()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu">
+        <button onclick="scrollToSection('home')">Home</button>
+        <button onclick="scrollToSection('services')">Services</button>
+        <button onclick="scrollToSection('portfolio')">Portfolio</button>
+        <button onclick="scrollToSection('about')">About</button>
+        <button onclick="scrollToSection('contact')">Contact</button>
+        <button class="btn btn-modern" style="width:100%;margin-top:1rem;">Get Quote</button>
+      </div>
+    </div>
+  </nav>
 
-  <section class="hero" id="home"><div class="container"><div class="hero-content"><div><span class="badge badge-primary">15+ Years of Excellence</span><h1 class="hero-title">Building Your<span class="hero-title-gradient">Vision</span></h1><p>First Construction Zone delivers exceptional renovation and development services across Brooklyn with precision and professionalism.</p><div class="hero-buttons"><button class="btn btn-modern btn-lg">Start Your Project →</button><button class="btn btn-outline btn-lg">📞 (646) 533-7097</button></div><div class="hero-stats"><div><div style="font-size:2.5rem;font-weight:bold;color:hsl(var(--primary))">500+</div><div>Projects Completed</div></div><div><div style="font-size:2.5rem;font-weight:bold;color:hsl(var(--primary))">15+</div><div>Years Experience</div></div></div></div></div></div></section>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-decorative-1"></div>
+    <div class="hero-decorative-2"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div>
+          <span class="badge badge-primary">15+ Years of Excellence</span>
+          <h1 class="hero-title">
+            Building Your
+            <span class="hero-title-gradient">Vision</span>
+          </h1>
+          <p class="hero-description">
+            First Construction Zone delivers exceptional renovation and development services across Brooklyn with precision and professionalism.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn btn-modern btn-lg">
+              Start Your Project
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <button class="btn btn-outline btn-lg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              (646) 533-7097
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-number">500+</div>
+              <div class="hero-stat-label">Projects Completed</div>
+            </div>
+            <div>
+              <div class="hero-stat-number">15+</div>
+              <div class="hero-stat-label">Years Experience</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-image-container">
+          <div class="hero-image-blur"></div>
+          <img src="/src/assets/hero-modern.jpg" alt="Modern construction site showcasing professional building work" class="hero-image">
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <section class="services" id="services"><div class="container"><h2 class="section-title">Our Services</h2><div class="services-grid"><div class="service-card"><h3>General Construction</h3><p>Full-service construction solutions from concept to completion.</p></div><div class="service-card"><h3>Renovations</h3><p>Transform your space with comprehensive renovation services.</p></div><div class="service-card"><h3>Electrical Services</h3><p>Licensed electricians providing safe installations.</p></div></div></div></section>
+  <!-- Services Section -->
+  <section class="services animate-on-scroll" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary">What We Do</span>
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-description">
+          Comprehensive construction solutions tailored to your needs with a dedicated team of specialists
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon service-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+          </div>
+          <h3 class="service-title">General Construction</h3>
+          <p class="service-description">Full-service construction solutions from concept to completion with expert project management.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon service-icon-coral">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+          </div>
+          <h3 class="service-title">Renovations</h3>
+          <p class="service-description">Transform your space with our comprehensive renovation services for residential and commercial properties.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon service-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
+          </div>
+          <h3 class="service-title">Electrical Services</h3>
+          <p class="service-description">Licensed electricians providing safe, code-compliant electrical installations and repairs.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon service-icon-coral">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+          </div>
+          <h3 class="service-title">Plumbing</h3>
+          <p class="service-description">Professional plumbing services including installations, repairs, and maintenance.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon service-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+          </div>
+          <h3 class="service-title">Carpentry</h3>
+          <p class="service-description">Expert carpentry work with attention to detail and superior craftsmanship.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon service-icon-coral">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"></path><path d="m5 2 5 5"></path><path d="m2 13 9 9"></path><path d="m7 13 6 6"></path></svg>
+          </div>
+          <h3 class="service-title">Painting</h3>
+          <p class="service-description">Professional painting services for interior and exterior projects of any scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <section class="portfolio" id="portfolio"><div class="container"><h2 class="section-title">Project Portfolio</h2><div class="portfolio-grid"><div class="project-card"><div style="aspect-ratio:4/3;background:#ddd"></div><div style="padding:1.5rem"><h3>Modern Kitchen Renovation</h3><p>Brooklyn Heights, NY • 2024</p></div></div><div class="project-card"><div style="aspect-ratio:4/3;background:#ddd"></div><div style="padding:1.5rem"><h3>Corporate Office Redesign</h3><p>Manhattan, NY • 2024</p></div></div></div></div></section>
+  <!-- Portfolio Section -->
+  <section class="portfolio animate-on-scroll" id="portfolio">
+    <div class="portfolio-decorative-1"></div>
+    <div class="portfolio-decorative-2"></div>
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary">Our Work</span>
+        <h2 class="section-title">Project Portfolio</h2>
+        <p class="section-description">
+          Explore our completed projects showcasing quality craftsmanship and attention to detail
+        </p>
+        <div class="portfolio-filters">
+          <button class="btn btn-modern btn-lg" onclick="filterProjects('All')">All</button>
+          <button class="btn btn-outline btn-lg" onclick="filterProjects('Residential')">Residential</button>
+          <button class="btn btn-outline btn-lg" onclick="filterProjects('Commercial')">Commercial</button>
+        </div>
+      </div>
+      <div class="portfolio-grid" id="portfolio-grid">
+        <!-- Projects will be injected here by JavaScript -->
+      </div>
+    </div>
+  </section>
 
-  <section class="contact" id="contact"><div class="container"><h2 class="section-title">Let's Build Together</h2><div class="contact-cards"><div style="text-align:center;padding:2rem;background:hsl(var(--card));border-radius:1rem"><h3>Call Us</h3><p>(646) 533-7097</p></div></div></div></section>
+  <!-- About Section -->
+  <section class="about animate-on-scroll" id="about">
+    <div class="about-decorative-1"></div>
+    <div class="about-decorative-2"></div>
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <span class="badge badge-primary">About Us</span>
+          <h2 class="section-title">Built on Trust & Quality</h2>
+          <p>
+            Since 2005, First Construction Zone has been Brooklyn's trusted partner for exceptional construction services. We specialize in developing and renovating across all aspects of construction.
+          </p>
+          <p>
+            Our comprehensive team includes licensed electricians, plumbers, carpenters, sub-contractors, painters, and architects—ensuring your project is completed correctly, safely, and on time.
+          </p>
+          <button class="btn btn-modern btn-lg">Discover Our Story</button>
+        </div>
+        <div>
+          <div class="about-card">
+            <h3>Why Choose FCZ</h3>
+            <ul class="highlights-list">
+              <li>
+                <div class="highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <span>Over 15 years of construction excellence</span>
+              </li>
+              <li>
+                <div class="highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <span>Fully licensed and insured</span>
+              </li>
+              <li>
+                <div class="highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <span>Full-service construction firm</span>
+              </li>
+              <li>
+                <div class="highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <span>Dedicated team of specialists</span>
+              </li>
+              <li>
+                <div class="highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <span>On-time and on-budget delivery</span>
+              </li>
+              <li>
+                <div class="highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <span>Quality craftsmanship guaranteed</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <footer><div class="container"><p style="text-align:center">© 2024 First Construction Zone Inc. All rights reserved.</p></div></footer>
+  <!-- Contact Section -->
+  <section class="contact animate-on-scroll" id="contact">
+    <div class="contact-decorative"></div>
+    <div class="contact-decorative-1"></div>
+    <div class="contact-decorative-2"></div>
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary">Get In Touch</span>
+        <h2 class="section-title">Let's Build Together</h2>
+        <p class="section-description">
+          Ready to transform your space? Reach out for a free consultation and project estimate
+        </p>
+      </div>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </div>
+          <h3>Visit Us</h3>
+          <p>2692 Coney Island Ave #2fl</p>
+          <p class="subdetails">Brooklyn, NY 11235</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </div>
+          <h3>Call Us</h3>
+          <p>(646) 533-7097</p>
+          <p class="subdetails">(718) 820-2531</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </div>
+          <h3>Email Us</h3>
+          <p>fcznyc@gmail.com</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          <h3>Fax</h3>
+          <p>(646) 820-2531</p>
+        </div>
+      </div>
+      <div class="contact-cta">
+        <div class="cta-card">
+          <div class="cta-content">
+            <div class="cta-decorative-1"></div>
+            <div class="cta-decorative-2"></div>
+            <div class="cta-inner">
+              <h3>Ready to Start Your Project?</h3>
+              <p>Get a free consultation and discover how we can transform your construction vision into reality</p>
+              <button class="btn btn-accent btn-lg">
+                Request Free Quote
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-decorative-1"></div>
+    <div class="footer-decorative-2"></div>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-company">
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </div>
+            <div class="footer-logo-text">
+              <h3>First Construction Zone</h3>
+              <p>Est. 2005</p>
+            </div>
+          </div>
+          <p class="footer-description">
+            Brooklyn's trusted construction partner delivering exceptional quality and craftsmanship for over 15 years.
+          </p>
+          <div class="footer-social">
+            <div class="social-icon">f</div>
+            <div class="social-icon">in</div>
+            <div class="social-icon">ig</div>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><button onclick="scrollToSection('home')">Home</button></li>
+            <li><button onclick="scrollToSection('services')">Services</button></li>
+            <li><button onclick="scrollToSection('about')">About Us</button></li>
+            <li><button onclick="scrollToSection('contact')">Contact</button></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>2692 Coney Island Ave #2fl<br>Brooklyn, NY 11235</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>(646) 533-7097</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>fcznyc@gmail.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 First Construction Zone Inc. All rights reserved. | <span>Fully Licensed & Insured</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="project-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div class="modal-image" id="modal-slider"></div>
+      <div class="modal-body">
+        <div class="modal-badges" id="modal-badges"></div>
+        <h2 id="modal-title"></h2>
+        <p id="modal-description"></p>
+      </div>
+    </div>
+  </div>
 
   <script>
+    // Projects data
+    const projects = [
+      {
+        id: 1,
+        title: "Modern Kitchen Renovation",
+        category: "Residential",
+        location: "Brooklyn Heights, NY",
+        date: "2024",
+        beforeImage: "/src/assets/projects/kitchen-before.jpg",
+        afterImage: "/src/assets/projects/kitchen-after.jpg",
+        description: "Complete kitchen transformation with custom cabinetry, marble countertops, and modern lighting."
+      },
+      {
+        id: 2,
+        title: "Corporate Office Redesign",
+        category: "Commercial",
+        location: "Manhattan, NY",
+        date: "2024",
+        beforeImage: "/src/assets/projects/office-before.jpg",
+        afterImage: "/src/assets/projects/office-after.jpg",
+        description: "Full office renovation featuring open floor plan, contemporary design, and collaborative spaces."
+      },
+      {
+        id: 3,
+        title: "Luxury Bathroom Remodel",
+        category: "Residential",
+        location: "Park Slope, NY",
+        date: "2023",
+        beforeImage: "/src/assets/projects/bathroom-before.jpg",
+        afterImage: "/src/assets/projects/bathroom-after.jpg",
+        description: "High-end bathroom renovation with marble finishes, custom fixtures, and spa-like amenities."
+      },
+      {
+        id: 4,
+        title: "Building Exterior Restoration",
+        category: "Commercial",
+        location: "Downtown Brooklyn, NY",
+        date: "2023",
+        beforeImage: "/src/assets/projects/exterior-before.jpg",
+        afterImage: "/src/assets/projects/exterior-after.jpg",
+        description: "Complete exterior transformation with modern facade design and updated architectural elements."
+      }
+    ];
+
+    let currentFilter = 'All';
+
+    // Navigation
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        closeMobileMenu();
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('open');
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.remove('open');
+    }
+
+    // Scroll effect
     window.addEventListener('scroll', () => {
-      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+      const nav = document.getElementById('nav');
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
     });
-    document.getElementById('menu-btn').addEventListener('click', function() {
-      this.textContent = this.textContent === '☰' ? '✕' : '☰';
+
+    // Before/After Slider
+    function createBeforeAfterSlider(containerId, beforeImage, afterImage) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      let sliderPosition = 50;
+      let isDragging = false;
+
+      container.innerHTML = `
+        <div class="before-after-slider">
+          <div class="slider-after">
+            <img src="${afterImage}" alt="After">
+            <div class="slider-label-after">After</div>
+          </div>
+          <div class="slider-before" style="clip-path: inset(0 50% 0 0);">
+            <img src="${beforeImage}" alt="Before">
+            <div class="slider-label-before">Before</div>
+          </div>
+          <div class="slider-line" style="left: 50%;">
+            <div class="slider-handle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const slider = container.querySelector('.before-after-slider');
+      const beforeDiv = slider.querySelector('.slider-before');
+      const line = slider.querySelector('.slider-line');
+
+      function handleMove(clientX) {
+        const rect = slider.getBoundingClientRect();
+        const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+        const percentage = (x / rect.width) * 100;
+        sliderPosition = percentage;
+        
+        beforeDiv.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+        line.style.left = `${percentage}%`;
+      }
+
+      slider.addEventListener('mousedown', () => isDragging = true);
+      slider.addEventListener('touchstart', () => isDragging = true);
+      
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        handleMove(e.clientX);
+      });
+      
+      document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        handleMove(e.touches[0].clientX);
+      });
+      
+      document.addEventListener('mouseup', () => isDragging = false);
+      document.addEventListener('touchend', () => isDragging = false);
+    }
+
+    // Portfolio filtering
+    function filterProjects(category) {
+      currentFilter = category;
+      
+      // Update button states
+      const buttons = document.querySelectorAll('.portfolio-filters .btn');
+      buttons.forEach(btn => {
+        if (btn.textContent === category) {
+          btn.classList.remove('btn-outline');
+          btn.classList.add('btn-modern');
+        } else {
+          btn.classList.remove('btn-modern');
+          btn.classList.add('btn-outline');
+        }
+      });
+      
+      renderProjects();
+    }
+
+    function renderProjects() {
+      const grid = document.getElementById('portfolio-grid');
+      const filtered = currentFilter === 'All' ? projects : projects.filter(p => p.category === currentFilter);
+      
+      grid.innerHTML = filtered.map(project => `
+        <div class="project-card" onclick="openModal(${project.id})">
+          <div class="project-image-container">
+            <div id="slider-${project.id}"></div>
+            <div class="project-overlay">
+              <button class="btn btn-accent btn-lg" style="width:100%;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                View Full Project
+              </button>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-badges">
+              <span class="badge badge-secondary">${project.category}</span>
+            </div>
+            <h3 class="project-title">${project.title}</h3>
+            <div class="project-meta">
+              <div class="project-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                ${project.location}
+              </div>
+              <div class="project-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                ${project.date}
+              </div>
+            </div>
+            <p class="project-description">${project.description}</p>
+          </div>
+        </div>
+      `).join('');
+
+      // Initialize sliders
+      setTimeout(() => {
+        filtered.forEach(project => {
+          createBeforeAfterSlider(`slider-${project.id}`, project.beforeImage, project.afterImage);
+        });
+      }, 100);
+    }
+
+    // Modal
+    function openModal(projectId) {
+      const project = projects.find(p => p.id === projectId);
+      if (!project) return;
+
+      document.getElementById('modal-title').textContent = project.title;
+      document.getElementById('modal-description').textContent = project.description;
+      document.getElementById('modal-badges').innerHTML = `
+        <span class="badge badge-secondary">${project.category}</span>
+        <span class="badge badge-outline">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          ${project.date}
+        </span>
+        <span class="badge badge-outline">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          ${project.location}
+        </span>
+      `;
+
+      document.getElementById('project-modal').classList.add('open');
+      
+      setTimeout(() => {
+        createBeforeAfterSlider('modal-slider', project.beforeImage, project.afterImage);
+      }, 100);
+    }
+
+    function closeModal() {
+      document.getElementById('project-modal').classList.remove('open');
+    }
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProjects();
+    });
+
+    // Close modal on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Close modal on background click
+    document.getElementById('project-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'project-modal') closeModal();
     });
   </script>
 </body>
