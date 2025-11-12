@@ -355,16 +355,42 @@
     /* Services Section */
     .services { 
       padding: 4rem 0; 
-      background: hsl(var(--background));
+      background: var(--gradient-subtle);
+      position: relative;
+      overflow: hidden;
+    }
+    .services-decorative-1 {
+      position: absolute;
+      top: 20%;
+      right: 0;
+      width: 20rem;
+      height: 20rem;
+      background: hsla(var(--primary), 0.05);
+      border-radius: 50%;
+      filter: blur(3rem);
+    }
+    .services-decorative-2 {
+      position: absolute;
+      bottom: 20%;
+      left: 0;
+      width: 20rem;
+      height: 20rem;
+      background: hsla(var(--accent), 0.05);
+      border-radius: 50%;
+      filter: blur(3rem);
     }
     .section-header {
       text-align: center;
       margin-bottom: 3rem;
+      position: relative;
+      z-index: 10;
     }
     .section-title { 
       font-size: clamp(2.5rem, 5vw, 3.75rem); 
       font-weight: bold; 
       margin-bottom: 1.5rem;
+      color: hsl(var(--foreground));
+      opacity: 1;
     }
     .section-description {
       font-size: 1.25rem;
@@ -376,6 +402,8 @@
       display: grid; 
       grid-template-columns: 1fr; 
       gap: 2rem; 
+      position: relative;
+      z-index: 10;
     }
     .service-card { 
       background: hsl(var(--card)); 
@@ -1063,6 +1091,8 @@
 
   <!-- Services Section -->
   <section class="services animate-on-scroll" id="services">
+    <div class="services-decorative-1"></div>
+    <div class="services-decorative-2"></div>
     <div class="container">
       <div class="section-header">
         <span class="badge badge-primary">What We Do</span>
@@ -1213,8 +1243,8 @@
     <div class="container">
       <div class="section-header">
         <span class="badge badge-primary">Get In Touch</span>
-        <h2 class="section-title">Let's Build Together</h2>
-        <p class="section-description">
+        <h2 class="section-title" style="color: hsl(215, 25%, 15%); opacity: 1 !important;">Let's Build Together</h2>
+        <p class="section-description" style="color: hsl(217, 10%, 50%); opacity: 1 !important;">
           Ready to transform your space? Reach out for a free consultation and project estimate
         </p>
       </div>
