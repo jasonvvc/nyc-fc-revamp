@@ -61,8 +61,7 @@
       right: 0; 
       z-index: 1000; 
       transition: all 0.3s;
-      background: hsla(var(--background), 0.95);
-      backdrop-filter: blur(12px);
+      background: hsl(var(--background));
       border-bottom: 1px solid hsl(var(--border));
     }
     nav.scrolled { 
@@ -82,17 +81,18 @@
       color: hsl(var(--foreground)); 
     }
     .nav-logo-icon { 
-      width: 40px; 
+      width: 60px; 
       height: 40px; 
-      background: var(--gradient-primary); 
-      border-radius: 12px; 
+      border-radius: 8px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
-      color: white; 
-      font-weight: bold; 
-      font-size: 18px; 
-      box-shadow: var(--shadow-blue); 
+      overflow: hidden;
+    }
+    .nav-logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
     .nav-logo-text {
       display: flex;
@@ -478,7 +478,6 @@
       border: 2px solid hsl(var(--border)); 
       border-radius: 1rem; 
       overflow: hidden; 
-      cursor: pointer; 
       transition: all 0.3s; 
     }
     .project-card:hover { 
@@ -495,23 +494,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s;
-    }
-    .project-card:hover .project-image-container img {
-      transform: scale(1.05);
-    }
-    .project-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-      display: flex;
-      align-items: flex-end;
-      padding: 1.5rem;
-    }
-    .project-card:hover .project-overlay {
-      opacity: 1;
     }
     .project-info {
       padding: 1.5rem;
@@ -656,7 +638,7 @@
     .contact .section-title,
     .contact .section-description {
       opacity: 1 !important;
-      color: hsl(215 25% 15%) !important;
+      color: hsl(var(--foreground)) !important;
     }
     .contact-decorative {
       position: absolute;
@@ -960,109 +942,6 @@
       color: rgba(255,255,255,0.5);
     }
 
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.9);
-      z-index: 999999;
-      padding: 1rem;
-      overflow-y: auto;
-      align-items: flex-start;
-      padding-top: 2rem;
-    }
-    .modal.open {
-      display: flex !important;
-      justify-content: center;
-    }
-    .modal-content {
-      background: white;
-      border-radius: 1rem;
-      max-width: 72rem;
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      animation: modalFadeIn 0.3s ease-out;
-      z-index: 1000000;
-    }
-    @keyframes modalFadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      background: white;
-      border: 2px solid #e0e0e0;
-      border-radius: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 1000001;
-      transition: all 0.3s;
-    }
-    .modal-close:hover {
-      background: hsl(217 91% 35%);
-      border-color: hsl(217 91% 35%);
-    }
-    .modal-close:hover svg {
-      color: white;
-    }
-    .modal-close svg {
-      width: 1.5rem;
-      height: 1.5rem;
-      color: #333;
-    }
-    #modal-slider {
-      position: relative;
-      width: 100%;
-      min-height: 400px;
-      background: #f5f5f5;
-    }
-    .modal-image {
-      position: relative;
-      width: 100%;
-      max-height: 500px;
-      min-height: 400px;
-      object-fit: cover;
-      display: block;
-    }
-    .modal-body {
-      padding: 2rem;
-      background: white;
-    }
-    .modal-badges {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-    .modal-body h2 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      color: #1a1a1a;
-    }
-    .modal-body p {
-      font-size: 1.25rem;
-      color: #666;
-      line-height: 1.6;
-    }
-
     /* Scroll animations */
     .animate-on-scroll {
       opacity: 0;
@@ -1107,7 +986,9 @@
     <div class="container">
       <div class="nav-content">
         <a href="#home" class="nav-logo">
-          <div class="nav-logo-icon">F</div>
+          <div class="nav-logo-icon">
+            <img src="https://static.wixstatic.com/media/90a441_507f9f7058ca41deafff3c5cb5dc9fa9~mv2.jpg" alt="FCZ Logo" />
+          </div>
           <div class="nav-logo-text">
             <span class="nav-logo-title">FCZ</span>
             <span class="nav-logo-subtitle">First Construction Zone</span>
@@ -1446,59 +1327,44 @@
     </div>
   </footer>
 
-  <!-- Modal -->
-  <div class="modal" id="project-modal">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-      </button>
-      <div class="modal-image" id="modal-slider"></div>
-      <div class="modal-body">
-        <div class="modal-badges" id="modal-badges"></div>
-        <h2 id="modal-title"></h2>
-        <p id="modal-description"></p>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Projects data with Unsplash images
+    // Projects data
     const projects = [
       {
         id: 1,
-        title: "Modern Kitchen Renovation",
+        title: "50 Willow Pond",
         category: "Residential",
-        location: "Brooklyn Heights, NY",
+        location: "Brooklyn, NY",
         date: "2024",
-        image: "https://images.unsplash.com/photo-1556912167-f556f1f39fdf?w=800&h=600&fit=crop",
-        description: "Complete kitchen transformation with custom cabinetry, marble countertops, and modern lighting."
+        image: "https://static.wixstatic.com/media/8f3be9_16177ff93a224b2993f56248d5530b6c~mv2.avif",
+        description: "Residential construction project featuring quality craftsmanship and attention to detail."
       },
       {
         id: 2,
-        title: "Corporate Office Redesign",
+        title: "The Shops At The Plaza",
         category: "Commercial",
-        location: "Manhattan, NY",
+        location: "New York, NY",
         date: "2024",
-        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
-        description: "Full office renovation featuring open floor plan, contemporary design, and collaborative spaces."
+        image: "https://static.wixstatic.com/media/8f3be9_deffc7baef4a4c1b8476abc3817f54cb~mv2.avif",
+        description: "Commercial construction showcasing modern design and professional execution."
       },
       {
         id: 3,
-        title: "Luxury Bathroom Remodel",
-        category: "Residential",
-        location: "Park Slope, NY",
-        date: "2023",
-        image: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=600&fit=crop",
-        description: "High-end bathroom renovation with marble finishes, custom fixtures, and spa-like amenities."
+        title: "Onegin - 391 Avenue Of The Americas",
+        category: "Commercial",
+        location: "New York, NY",
+        date: "2024",
+        image: "https://static.wixstatic.com/media/8f3be9_5981112cbf2347bcaff6586b40f9d5bb~mv2.avif",
+        description: "Premium commercial space featuring contemporary architecture and expert construction."
       },
       {
         id: 4,
-        title: "Building Exterior Restoration",
-        category: "Commercial",
-        location: "Downtown Brooklyn, NY",
+        title: "The Seashore at Long Branch",
+        category: "Residential",
+        location: "Long Branch, NJ",
         date: "2023",
-        image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop",
-        description: "Complete exterior transformation with modern facade design and updated architectural elements."
+        image: "https://static.wixstatic.com/media/8f3be9_6797c27c51b444dc9ac5563a7ca59ad5~mv2.avif",
+        description: "Luxury residential development with premium finishes and meticulous construction standards."
       }
     ];
 
@@ -1557,15 +1423,9 @@
       const filtered = currentFilter === 'All' ? projects : projects.filter(p => p.category === currentFilter);
       
       grid.innerHTML = filtered.map(project => `
-        <div class="project-card" onclick="openModal(${project.id})">
+        <div class="project-card">
           <div class="project-image-container">
             <img src="${project.image}" alt="${project.title}" loading="lazy" />
-            <div class="project-overlay">
-              <button class="btn btn-accent btn-lg" style="width:100%;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
-                View Full Project
-              </button>
-            </div>
           </div>
           <div class="project-info">
             <div class="project-badges">
@@ -1588,41 +1448,7 @@
       `).join('');
     }
 
-    // Modal
-    function openModal(projectId) {
-      const project = projects.find(p => p.id === projectId);
-      if (!project) return;
-
-      document.getElementById('modal-title').textContent = project.title;
-      document.getElementById('modal-description').textContent = project.description;
-      document.getElementById('modal-badges').innerHTML = `
-        <span class="badge badge-secondary">${project.category}</span>
-        <span class="badge badge-outline">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-          ${project.date}
-        </span>
-        <span class="badge badge-outline">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          ${project.location}
-        </span>
-      `;
-
-      // Set modal image with proper styling for iframe visibility
-      const modalSlider = document.getElementById('modal-slider');
-      modalSlider.innerHTML = `
-        <img src="${project.image}" alt="${project.title}" class="modal-image" style="display: block; width: 100%; height: auto;" onerror="this.src='https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop'" />
-      `;
-
-      const modal = document.getElementById('project-modal');
-      modal.classList.add('open');
-      modal.style.display = 'flex';
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('project-modal');
-      modal.classList.remove('open');
-      modal.style.display = 'none';
-    }
+    // Modal functions removed - projects are no longer clickable
 
     // Scroll animations
     const observerOptions = {
@@ -1647,15 +1473,6 @@
       renderProjects();
     });
 
-    // Close modal on escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // Close modal on background click
-    document.getElementById('project-modal').addEventListener('click', (e) => {
-      if (e.target.id === 'project-modal') closeModal();
-    });
   </script>
 </body>
 </html>
