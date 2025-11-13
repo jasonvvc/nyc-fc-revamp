@@ -436,7 +436,8 @@
       padding: 4rem 0; 
       background: var(--gradient-subtle); 
       position: relative; 
-      overflow: hidden;
+      overflow: visible;
+      min-height: auto;
     }
     .portfolio-decorative-1 {
       position: absolute;
@@ -472,8 +473,8 @@
       margin-top: 4rem;
       position: relative;
       z-index: 10;
-      min-height: auto;
       width: 100%;
+      grid-auto-rows: auto;
     }
     .project-card { 
       background: hsl(var(--card)); 
@@ -482,8 +483,8 @@
       overflow: hidden; 
       transition: all 0.3s;
       width: 100%;
-      display: flex;
-      flex-direction: column;
+      display: block;
+      height: auto;
     }
     .project-card:hover { 
       border-color: hsl(var(--primary)); 
@@ -492,7 +493,8 @@
     .project-image-container {
       position: relative;
       width: 100%;
-      padding-top: 75%; /* 4:3 Aspect Ratio */
+      height: 0;
+      padding-bottom: 75%; /* 4:3 Aspect Ratio */
       overflow: hidden;
       background: hsl(var(--muted));
     }
@@ -504,6 +506,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      max-width: 100%;
     }
     .project-info {
       padding: 1.5rem;
@@ -974,12 +977,24 @@
       .hero-content { 
         padding: 0rem 0; 
       }
+      .portfolio {
+        padding: 3rem 0;
+        overflow: visible;
+      }
       .portfolio-grid {
         gap: 1.5rem;
-        margin-top: 3rem;
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
       }
       .project-card {
         margin-bottom: 0;
+        display: block;
+        width: 100%;
+      }
+      .project-image-container {
+        padding-bottom: 66.67%; /* 3:2 ratio for mobile */
       }
       .project-title {
         font-size: 1.25rem;
