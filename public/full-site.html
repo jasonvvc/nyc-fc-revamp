@@ -493,16 +493,10 @@
     .project-image-container {
       position: relative;
       width: 100%;
-      min-height: 300px;
+      height: 0;
+      padding-bottom: 75%; /* 4:3 Aspect Ratio */
       overflow: hidden;
       background: hsl(var(--muted));
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-    }
-    .project-image-container::before {
-      content: '';
-      display: block;
-      padding-top: 75%; /* 4:3 Aspect Ratio */
     }
     .project-image-container img {
       position: absolute;
@@ -512,8 +506,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
+      max-width: 100%;
     }
     .project-info {
       padding: 1.5rem;
@@ -969,7 +962,7 @@
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
     .animate-on-scroll.is-visible {
-      opacity: 1;
+      opacity: 1 !important;
       transform: translateY(0);
     }
 
@@ -999,15 +992,9 @@
         margin-bottom: 0;
         display: block;
         width: 100%;
-        min-height: 200px;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
       }
       .project-image-container {
-        min-height: 250px;
-      }
-      .project-image-container::before {
-        padding-top: 66.67%; /* 3:2 ratio for mobile */
+        padding-bottom: 66.67%; /* 3:2 ratio for mobile */
       }
       .project-title {
         font-size: 1.25rem;
@@ -1051,72 +1038,106 @@
             <span class="nav-logo-subtitle">First Construction Zone</span>
           </div>
         </a>
+  
         <div class="nav-links">
           <button onclick="scrollToSection('home')">Home</button>
           <button onclick="scrollToSection('services')">Services</button>
           <button onclick="scrollToSection('portfolio')">Portfolio</button>
           <button onclick="scrollToSection('about')">About</button>
           <button onclick="scrollToSection('contact')">Contact</button>
-          <button class="btn btn-modern btn-lg" style="background: var(--gradient-primary); color: white; border: none;">Get Quote</button>
+  
+          <!-- Updated Get Quote Email Button -->
+          <a 
+            href="mailto:fcznyc@gmail.com?subject=Project%20Quote%20Request&body=Hi%20First%20Construction%20Zone%2C%0A%0AI'd%20like%20to%20request%20a%20quote%20for%20a%20project.%20Please%20get%20in%20touch%20with%20me." 
+            class="btn btn-modern btn-lg"
+            onclick="this.href=this.href"
+            style="background: var(--gradient-primary); color: white; border: none;">
+            Get Quote
+          </a>
         </div>
+  
         <button class="mobile-menu-btn" id="menu-btn" onclick="toggleMobileMenu()">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
         </button>
       </div>
+  
+      <!-- Mobile Menu -->
       <div class="mobile-menu" id="mobile-menu">
         <button onclick="scrollToSection('home')">Home</button>
         <button onclick="scrollToSection('services')">Services</button>
         <button onclick="scrollToSection('portfolio')">Portfolio</button>
         <button onclick="scrollToSection('about')">About</button>
         <button onclick="scrollToSection('contact')">Contact</button>
-        <button class="btn btn-modern" style="width:100%;margin-top:1rem;">Get Quote</button>
+  
+        <!-- Updated Mobile Get Quote Email Button -->
+        <a 
+          href="mailto:fcznyc@gmail.com?subject=Project%20Quote%20Request&body=Hi%20First%20Construction%20Zone%2C%0A%0AI'd%20like%20to%20request%20a%20quote%20for%20a%20project.%20Please%20get%20in%20touch%20with%20me." 
+          class="btn btn-modern"
+          onclick="this.href=this.href"
+          style="width:100%;margin-top:1rem;">
+          Get Quote
+        </a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-decorative-1"></div>
-    <div class="hero-decorative-2"></div>
-    <div class="container">
-      <div class="hero-content">
-        <div>
-          <span class="badge badge-primary">15+ Years of Excellence</span>
-          <h1 class="hero-title">
-            Building Your
-            <span class="hero-title-gradient">Vision</span>
-          </h1>
-          <p class="hero-description">
-            First Construction Zone delivers exceptional renovation and development services across the Tri-State Area with precision and professionalism.
-          </p>
-          <div class="hero-buttons">
-            <button class="btn btn-modern btn-lg">
-              Start Your Project
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </button>
-            <button class="btn btn-outline btn-lg">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-              (646) 533-7097
-            </button>
-          </div>
-          <div class="hero-stats">
-            <div>
-              <div class="hero-stat-number">500+</div>
-              <div class="hero-stat-label">Projects Completed</div>
-            </div>
-            <div>
-              <div class="hero-stat-number">15+</div>
-              <div class="hero-stat-label">Years Experience</div>
-            </div>
-          </div>
+ <!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-decorative-1"></div>
+  <div class="hero-decorative-2"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div>
+        <span class="badge badge-primary">15+ Years of Excellence</span>
+        <h1 class="hero-title">
+          Building Your
+          <span class="hero-title-gradient">Vision</span>
+        </h1>
+        <p class="hero-description">
+          First Construction Zone delivers exceptional renovation and development services across the Tri-State Area with precision and professionalism.
+        </p>
+
+        <!-- Updated Buttons -->
+        <div class="hero-buttons">
+          <!-- Email CTA -->
+          <a href="mailto:fcznyc@gmail.com?subject=Start%20My%20Project&body=Hi%20First%20Construction%20Zone%2C%0A%0AI'd%20like%20to%20start%20a%20new%20project.%20Please%20get%20in%20touch%20with%20me." 
+             class="btn btn-modern btn-lg"
+             onclick="this.href=this.href">
+            Start Your Project
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
         </div>
-        <div class="hero-image-container">
-          <div class="hero-image-blur"></div>
-          <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop" alt="Modern construction site showcasing professional building work" class="hero-image">
+
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-number">500+</div>
+            <div class="hero-stat-label">Projects Completed</div>
+          </div>
+          <div>
+            <div class="hero-stat-number">15+</div>
+            <div class="hero-stat-label">Years Experience</div>
+          </div>
         </div>
       </div>
+
+      <div class="hero-image-container">
+        <div class="hero-image-blur"></div>
+        <img 
+          src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop" 
+          alt="Modern construction site showcasing professional building work" 
+          class="hero-image"
+        >
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Services Section -->
   <section class="services animate-on-scroll" id="services">
@@ -1458,16 +1479,44 @@
         date: "2025",
         image: "https://static.wixstatic.com/media/8f3be9_3cca25285f9b4384a3b3267b23d6c1da~mv2.jpg",
         description: "115 Euclid Avenue is an elegant coastal home in the exclusive village of Loch Arbour. Featuring refined interiors, open living spaces, and a serene beach-town setting, the residence offers a private, sophisticated lifestyle steps from the ocean."
-      }
+      },
     ];
 
     let currentFilter = 'All';
 
-    // Navigation
+    // Navigation - Safari iOS compatible
     function scrollToSection(id) {
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        // Get the navigation height for offset
+        const navHeight = document.getElementById('nav').offsetHeight || 80;
+        
+        // Calculate target position
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+        
+        // Safari-compatible smooth scroll
+        const startPosition = window.pageYOffset;
+        const distance = offsetPosition - startPosition;
+        const duration = 600;
+        let start = null;
+        
+        function animation(currentTime) {
+          if (start === null) start = currentTime;
+          const timeElapsed = currentTime - start;
+          const run = ease(timeElapsed, startPosition, distance, duration);
+          window.scrollTo(0, run);
+          if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+        
+        function ease(t, b, c, d) {
+          t /= d / 2;
+          if (t < 1) return c / 2 * t * t + b;
+          t--;
+          return -c / 2 * (t * (t - 2) - 1) + b;
+        }
+        
+        requestAnimationFrame(animation);
         closeMobileMenu();
       }
     }
@@ -1512,10 +1561,21 @@
     }
 
     function renderProjects() {
-      const grid = document.getElementById('portfolio-grid');
-      const filtered = currentFilter === 'All' ? projects : projects.filter(p => p.category === currentFilter);
-      
-      grid.innerHTML = filtered.map(project => `
+  const grid = document.getElementById('portfolio-grid');
+  const filtered =
+    currentFilter === 'All'
+      ? projects
+      : projects.filter((p) => p.category === currentFilter);
+
+  // detect if mobile (you can adjust the breakpoint)
+  const isMobile = window.innerWidth <= 768;
+
+  // if mobile, only show first 6
+  const visibleProjects = isMobile ? filtered.slice(0, 6) : filtered;
+
+  grid.innerHTML = visibleProjects
+    .map(
+      (project) => `
         <div class="project-card">
           <div class="project-image-container">
             <img src="${project.image}" alt="${project.title}" loading="lazy" />
@@ -1538,8 +1598,10 @@
             <p class="project-description">${project.description}</p>
           </div>
         </div>
-      `).join('');
-    }
+      `
+    )
+    .join('');
+}
 
     // Modal functions removed - projects are no longer clickable
 
