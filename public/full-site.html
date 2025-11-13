@@ -355,42 +355,16 @@
     /* Services Section */
     .services { 
       padding: 4rem 0; 
-      background: var(--gradient-subtle);
-      position: relative;
-      overflow: hidden;
-    }
-    .services-decorative-1 {
-      position: absolute;
-      top: 20%;
-      right: 0;
-      width: 20rem;
-      height: 20rem;
-      background: hsla(var(--primary), 0.05);
-      border-radius: 50%;
-      filter: blur(3rem);
-    }
-    .services-decorative-2 {
-      position: absolute;
-      bottom: 20%;
-      left: 0;
-      width: 20rem;
-      height: 20rem;
-      background: hsla(var(--accent), 0.05);
-      border-radius: 50%;
-      filter: blur(3rem);
+      background: hsl(var(--background));
     }
     .section-header {
       text-align: center;
       margin-bottom: 3rem;
-      position: relative;
-      z-index: 10;
     }
     .section-title { 
       font-size: clamp(2.5rem, 5vw, 3.75rem); 
       font-weight: bold; 
       margin-bottom: 1.5rem;
-      color: hsl(var(--foreground));
-      opacity: 1;
     }
     .section-description {
       font-size: 1.25rem;
@@ -402,8 +376,6 @@
       display: grid; 
       grid-template-columns: 1fr; 
       gap: 2rem; 
-      position: relative;
-      z-index: 10;
     }
     .service-card { 
       background: hsl(var(--card)); 
@@ -500,13 +472,18 @@
       margin-top: 4rem;
       position: relative;
       z-index: 10;
+      min-height: auto;
+      width: 100%;
     }
     .project-card { 
       background: hsl(var(--card)); 
       border: 2px solid hsl(var(--border)); 
       border-radius: 1rem; 
       overflow: hidden; 
-      transition: all 0.3s; 
+      transition: all 0.3s;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
     }
     .project-card:hover { 
       border-color: hsl(var(--primary)); 
@@ -514,14 +491,19 @@
     }
     .project-image-container {
       position: relative;
-      aspect-ratio: 4/3;
+      width: 100%;
+      padding-top: 75%; /* 4:3 Aspect Ratio */
       overflow: hidden;
       background: hsl(var(--muted));
     }
     .project-image-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
     .project-info {
       padding: 1.5rem;
@@ -986,6 +968,25 @@
       .hero-buttons { flex-direction: row; }
       .nav-logo-subtitle { display: block; }
       .container { padding: 0 2rem; }
+      
+    }
+    @media (max-width: 640px) { 
+      .hero-content { 
+        padding: 0rem 0; 
+      }
+      .portfolio-grid {
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+      .project-card {
+        margin-bottom: 0;
+      }
+      .project-title {
+        font-size: 1.25rem;
+      }
+      .project-description {
+        font-size: 0.9375rem;
+      }
     }
     @media (min-width: 768px) { 
       .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1002,7 +1003,7 @@
       .hero-content { grid-template-columns: 1fr 1fr; }
       .hero-image-container { display: block; }
       .services-grid { grid-template-columns: repeat(3, 1fr); }
-      .contact-cards { grid-template-columns: repeat(4, 1fr); }
+      .contact-cards { grid-template-columns: repeat(3, 1fr); }
       .footer-content { grid-template-columns: 2fr 1fr 1fr; }
       .footer-company { grid-column: span 1; }
     }
@@ -1058,7 +1059,7 @@
             <span class="hero-title-gradient">Vision</span>
           </h1>
           <p class="hero-description">
-            First Construction Zone delivers exceptional renovation and development services across Brooklyn with precision and professionalism.
+            First Construction Zone delivers exceptional renovation and development services across the Tri-State Area with precision and professionalism.
           </p>
           <div class="hero-buttons">
             <button class="btn btn-modern btn-lg">
@@ -1091,8 +1092,6 @@
 
   <!-- Services Section -->
   <section class="services animate-on-scroll" id="services">
-    <div class="services-decorative-1"></div>
-    <div class="services-decorative-2"></div>
     <div class="container">
       <div class="section-header">
         <span class="badge badge-primary">What We Do</span>
@@ -1157,7 +1156,7 @@
         <span class="badge badge-primary">Our Work</span>
         <h2 class="section-title">Project Portfolio</h2>
         <p class="section-description">
-          Explore our completed projects showcasing quality craftsmanship and attention to detail
+          Explore some of our completed projects showcasing quality craftsmanship and attention to detail
         </p>
         <div class="portfolio-filters">
           <button class="btn btn-modern btn-lg" onclick="filterProjects('All')">All</button>
@@ -1243,8 +1242,8 @@
     <div class="container">
       <div class="section-header">
         <span class="badge badge-primary">Get In Touch</span>
-        <h2 class="section-title" style="color: hsl(215, 25%, 15%); opacity: 1 !important;">Let's Build Together</h2>
-        <p class="section-description" style="color: hsl(217, 10%, 50%); opacity: 1 !important;">
+        <h2 class="section-title">Let's Build Together</h2>
+        <p class="section-description">
           Ready to transform your space? Reach out for a free consultation and project estimate
         </p>
       </div>
@@ -1254,7 +1253,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
           </div>
           <h3>Visit Us</h3>
-          <p>2692 Coney Island Ave #2fl</p>
+          <p>2490 Mcdonald Ave</p>
           <p class="subdetails">Brooklyn, NY 11235</p>
         </div>
         <div class="contact-card">
@@ -1272,13 +1271,13 @@
           <h3>Email Us</h3>
           <p>fcznyc@gmail.com</p>
         </div>
-        <div class="contact-card">
+        <!-- <div class="contact-card">
           <div class="contact-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
           </div>
           <h3>Fax</h3>
           <p>(646) 820-2531</p>
-        </div>
+        </div> -->
       </div>
       <div class="contact-cta">
         <div class="cta-card">
@@ -1320,7 +1319,7 @@
           </p>
           <div class="footer-social">
             <div class="social-icon">f</div>
-            <div class="social-icon">in</div>
+            <div onclick="window.open('https://www.linkedin.com/company/firstconstructionzone/', '_blank')" class="social-icon">in</div> 
             <div class="social-icon">ig</div>
           </div>
         </div>
@@ -1338,7 +1337,7 @@
           <ul class="footer-contact-list">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-              <span>2692 Coney Island Ave #2fl<br>Brooklyn, NY 11235</span>
+              <span>2490 Mcdonald Ave<br>Brooklyn, NY 11235</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -1352,7 +1351,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2024 First Construction Zone Inc. All rights reserved. | <span>Fully Licensed & Insured</span></p>
+        <p>© 2025 First Construction Zone Inc. All rights reserved. | <span>Fully Licensed & Insured</span></p>
       </div>
     </div>
   </footer>
@@ -1364,37 +1363,73 @@
         id: 1,
         title: "50 Willow Pond",
         category: "Residential",
-        location: "Brooklyn, NY",
-        date: "2024",
+        location: "Staten Island, NY",
+        date: "2015",
         image: "https://static.wixstatic.com/media/8f3be9_16177ff93a224b2993f56248d5530b6c~mv2.avif",
-        description: "Residential construction project featuring quality craftsmanship and attention to detail."
+        description: "50 Willow Pond is an exceptional single-family luxury residence situated in the prestigious Todt Hill enclave of Staten Island. Designed with refined architectural detailing, elevated finishes, and expansive interior spaces, the home delivers a lifestyle defined by comfort, sophistication, and timeless elegance. Set against the natural beauty and quiet elevation of Todt Hill, the property offers rare privacy while remaining moments from parks, waterfront views, and key commuting routes. With its seamless blend of modern luxury and serene surroundings, 50 Willow Pond stands as a distinguished residential retreat in one of Staten Island’s most coveted neighborhoods."
       },
       {
         id: 2,
         title: "The Shops At The Plaza",
         category: "Commercial",
         location: "New York, NY",
-        date: "2024",
+        date: "2019",
         image: "https://static.wixstatic.com/media/8f3be9_deffc7baef4a4c1b8476abc3817f54cb~mv2.avif",
-        description: "Commercial construction showcasing modern design and professional execution."
+        description: "The Shops at The Plaza is a premier commercial destination designed to bring together best-in-class retailers, curated dining concepts, and essential service providers. Featuring striking architecture, expansive glass storefronts, and highly adaptable floor plates, this development elevates the retail experience within a growing marketplace. Strategically positioned to capture consistent foot traffic and serve as a central hub for the surrounding community, The Shops at The Plaza offers tenants unparalleled visibility, strong consumer demographics, and the prestige of operating within a thoughtfully master-planned commercial environment"
       },
       {
         id: 3,
         title: "Onegin - 391 Avenue Of The Americas",
         category: "Commercial",
-        location: "New York, NY",
-        date: "2024",
+        location: "Manhattan",
+        date: "2014",
         image: "https://static.wixstatic.com/media/8f3be9_5981112cbf2347bcaff6586b40f9d5bb~mv2.avif",
-        description: "Premium commercial space featuring contemporary architecture and expert construction."
+        description: "Situated at a marquee address in the heart of Greenwich Village, Onegin at 391 Avenue of the Americas embodies the sophistication and character synonymous with downtown Manhattan. This iconic commercial space blends architectural charm with modern infrastructure, creating a rare opportunity for hospitality, lifestyle, or experiential brands seeking a standout presence in one of the city’s most vibrant corridors. With high visibility, continuous pedestrian flow, and a neighborhood known for culture, cuisine, and creativity, Onegin offers both distinction and long-term value in a premier Manhattan retail environment."
       },
       {
         id: 4,
         title: "The Seashore at Long Branch",
         category: "Residential",
         location: "Long Branch, NJ",
-        date: "2023",
+        date: "2024",
         image: "https://static.wixstatic.com/media/8f3be9_6797c27c51b444dc9ac5563a7ca59ad5~mv2.avif",
-        description: "Luxury residential development with premium finishes and meticulous construction standards."
+        description: "The Seashore at Long Branch is a coastal luxury community that redefines modern beach-town living. Designed with a focus on elegance, comfort, and seamless indoor-outdoor flow, this residential development features contemporary architecture, premium materials, and elevated design touches throughout. Just moments from the shoreline and the energy of Long Branch’s waterfront attractions, residents enjoy a refined lifestyle paired with the serenity of ocean living. With its combination of craftsmanship, location, and resort-inspired amenities, The Seashore at Long Branch stands as a premier residential offering along the New Jersey coast."
+      },
+      {
+        id: 5,
+        title: "340 Neptune Ave Brooklyn, NY 11235",
+        category: "Residential",
+        location: "Brooklyn, NY",
+        date: "2018",
+        image: "https://static.wixstatic.com/media/8f3be9_c3eee1bce04c4b88b46ca8effc8988c4~mv2.png",
+        description: "340 Neptune Avenue offers modern multifamily living in the heart of coastal Brooklyn. Featuring well-designed layouts, quality finishes, and abundant natural light, the building provides comfortable, contemporary homes just steps from the waterfront, parks, shops, and major transit"
+      },
+      {
+        id: 6,
+        title: "86 Brighton 1st Place Brooklyn, NY 11235",
+        category: "Commercial",
+        location: "Brooklyn, NY",
+        date: "2016",
+        image: "https://static.wixstatic.com/media/8f3be9_b311e5b988c047f3ac10c4a17da09aa6~mv2.png",
+        description: "86 Brighton 1st Place is a prime commercial property in the high-traffic Brighton Beach district. With strong visibility, flexible floor plates, and modern infrastructure, it’s ideal for retail, medical, office, or service-based tenants seeking a strategic Brooklyn location."
+      },
+      {
+        id: 7,
+        title: "1930 Avenue M Brooklyn, NY 11230",
+        category: "Residential",
+        location: "Brooklyn, NY",
+        date: "2019",
+        image: "https://static.wixstatic.com/media/8f3be9_86601cf1e52f4cdda81b9a254c401f55~mv2.png",
+        description: "1930 Avenue M delivers boutique multifamily living in Midwood, blending neighborhood charm with modern convenience. Thoughtful layouts, curated finishes, and proximity to shops, schools, and transit create an elevated residential experience in a sought-after Brooklyn community."
+      },
+      {
+        id: 8,
+        title: "115 Euclid Ave, Loch Arbour, NJ 07711",
+        category: "Residential",
+        location: "Loch Arbour, NJ",
+        date: "2025",
+        image: "https://static.wixstatic.com/media/8f3be9_3cca25285f9b4384a3b3267b23d6c1da~mv2.jpg",
+        description: "115 Euclid Avenue is an elegant coastal home in the exclusive village of Loch Arbour. Featuring refined interiors, open living spaces, and a serene beach-town setting, the residence offers a private, sophisticated lifestyle steps from the ocean."
       }
     ];
 
