@@ -1050,7 +1050,7 @@
           <a 
             href="mailto:fcznyc@gmail.com?subject=Project%20Quote%20Request&body=Hi%20First%20Construction%20Zone%2C%0A%0AI'd%20like%20to%20request%20a%20quote%20for%20a%20project.%20Please%20get%20in%20touch%20with%20me." 
             class="btn btn-modern btn-lg"
-            onclick="this.href=this.href"
+            onclick="window.location.href=this.href; return false;"
             style="background: var(--gradient-primary); color: white; border: none;">
             Get Quote
           </a>
@@ -1077,7 +1077,7 @@
         <a 
           href="mailto:fcznyc@gmail.com?subject=Project%20Quote%20Request&body=Hi%20First%20Construction%20Zone%2C%0A%0AI'd%20like%20to%20request%20a%20quote%20for%20a%20project.%20Please%20get%20in%20touch%20with%20me." 
           class="btn btn-modern"
-          onclick="this.href=this.href"
+          onclick="window.location.href=this.href; return false;"
           style="width:100%;margin-top:1rem;">
           Get Quote
         </a>
@@ -1106,7 +1106,7 @@
           <!-- Email CTA -->
           <a href="mailto:fcznyc@gmail.com?subject=Start%20My%20Project&body=Hi%20First%20Construction%20Zone%2C%0A%0AI'd%20like%20to%20start%20a%20new%20project.%20Please%20get%20in%20touch%20with%20me." 
              class="btn btn-modern btn-lg"
-             onclick="this.href=this.href">
+             onclick="window.location.href=this.href; return false;">
             Start Your Project
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -1484,40 +1484,32 @@
 
     let currentFilter = 'All';
 
-    // Navigation - Safari iOS compatible
+    // Navigation - Safari iOS and iframe compatible
     function scrollToSection(id) {
       const element = document.getElementById(id);
       if (element) {
-        // Get the navigation height for offset
-        const navHeight = document.getElementById('nav').offsetHeight || 80;
-        
-        // Calculate target position
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-        
-        // Safari-compatible smooth scroll
-        const startPosition = window.pageYOffset;
-        const distance = offsetPosition - startPosition;
-        const duration = 600;
-        let start = null;
-        
-        function animation(currentTime) {
-          if (start === null) start = currentTime;
-          const timeElapsed = currentTime - start;
-          const run = ease(timeElapsed, startPosition, distance, duration);
-          window.scrollTo(0, run);
-          if (timeElapsed < duration) requestAnimationFrame(animation);
-        }
-        
-        function ease(t, b, c, d) {
-          t /= d / 2;
-          if (t < 1) return c / 2 * t * t + b;
-          t--;
-          return -c / 2 * (t * (t - 2) - 1) + b;
-        }
-        
-        requestAnimationFrame(animation);
         closeMobileMenu();
+        
+        // Get navigation height for offset
+        const nav = document.getElementById('nav');
+        const navHeight = nav ? nav.offsetHeight : 80;
+        
+        // Calculate target position using offsetTop (more reliable in iframes)
+        let offsetTop = element.offsetTop - navHeight;
+        
+        // Use setTimeout to ensure mobile menu closes before scrolling
+        setTimeout(function() {
+          // Try modern smooth scroll first
+          try {
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          } catch (e) {
+            // Fallback for older browsers or problematic iframes
+            window.scrollTo(0, offsetTop);
+          }
+        }, 100);
       }
     }
 
