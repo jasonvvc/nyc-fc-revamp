@@ -1493,43 +1493,39 @@
       return iOS && webkit && notChrome;
     }
 
-    // Navigation scrolling with iOS Safari iframe support
+    // Navigation scrolling - works in iframe on all devices
     function scrollToSection(id) {
       const element = document.getElementById(id);
-      if (element) {
-        const nav = document.getElementById('nav');
-        const navHeight = nav ? nav.offsetHeight : 80;
+      if (!element) return;
+      
+      const nav = document.getElementById('nav');
+      const navHeight = nav ? nav.offsetHeight : 80;
+      
+      // Close menu first
+      closeMobileMenu();
+      
+      // Wait a bit for menu animation
+      setTimeout(function() {
+        // Calculate position
+        const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementTop - navHeight;
         
-        closeMobileMenu();
-        
-        // iOS Safari in iframe needs special handling
+        // iOS Safari in iframe - use instant scroll
         if (isIOSSafari()) {
-          setTimeout(function() {
-            const yOffset = -navHeight;
-            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            
-            // Use instant scroll on iOS Safari to avoid stuck behavior
-            window.scrollTo(0, y);
-            
-            // Force a repaint
-            document.body.style.overflow = 'hidden';
-            setTimeout(function() {
-              document.body.style.overflow = '';
-            }, 10);
-          }, 350);
+          window.scrollTo(0, offsetPosition);
         } else {
-          // Desktop and other browsers - use smooth scroll
-          setTimeout(function() {
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-            
+          // Desktop and other browsers - smooth scroll
+          try {
             window.scrollTo({
               top: offsetPosition,
               behavior: 'smooth'
             });
-          }, 100);
+          } catch (e) {
+            // Fallback for browsers that don't support smooth scroll
+            window.scrollTo(0, offsetPosition);
+          }
         }
-      }
+      }, 200);
     }
 
     // Handle mailto for iOS Safari in iframe
