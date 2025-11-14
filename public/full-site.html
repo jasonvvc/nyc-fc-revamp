@@ -1528,11 +1528,8 @@
       if (isIPhone() && window.parent !== window) {
         event.preventDefault();
         
-        // Send postMessage to parent Wix page
-        window.parent.postMessage({
-          type: 'scrollToSection',
-          section: sectionId
-        }, '*');
+        // Send button name to parent Wix page
+        window.parent.postMessage(sectionId, "https://www.nycfcz.com/");
         
         return false;
       }
