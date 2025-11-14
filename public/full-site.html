@@ -1049,6 +1049,7 @@
           <!-- Updated Get Quote Email Button -->
           <a 
             href="mailto:fcznyc@gmail.com?subject=Project%20Quote%20Request&body=Hi%20First%20Construction%20Zone%2C%0A%0AI'd%20like%20to%20request%20a%20quote%20for%20a%20project.%20Please%20get%20in%20touch%20with%20me." 
+            onclick="return openEmail(this.href);"
             class="btn btn-modern btn-lg"
             style="background: var(--gradient-primary); color: white; border: none;">
             Get Quote
@@ -1075,6 +1076,7 @@
         <!-- Updated Mobile Get Quote Email Button -->
         <a 
           href="mailto:fcznyc@gmail.com?subject=Project%20Quote%20Request&body=Hi%20First%20Construction%20Zone%2C%0A%0AI'd%20like%20to%20request%20a%20quote%20for%20a%20project.%20Please%20get%20in%20touch%20with%20me." 
+          onclick="return openEmail(this.href);"
           class="btn btn-modern"
           style="width:100%;margin-top:1rem;">
           Get Quote
@@ -1103,6 +1105,7 @@
         <div class="hero-buttons">
           <!-- Email CTA -->
           <a href="mailto:fcznyc@gmail.com?subject=Start%20My%20Project&body=Hi%20First%20Construction%20Zone%2C%0A%0AI'd%20like%20to%20start%20a%20new%20project.%20Please%20get%20in%20touch%20with%20me." 
+             onclick="return openEmail(this.href);"
              class="btn btn-modern btn-lg">
             Start Your Project
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1481,27 +1484,66 @@
 
     let currentFilter = 'All';
 
-    // Navigation scrolling that works in iframe
+    // Detect iOS Safari
+    function isIOSSafari() {
+      const ua = navigator.userAgent;
+      const iOS = /iPad|iPhone|iPod/.test(ua);
+      const webkit = /WebKit/.test(ua);
+      const notChrome = !/CriOS/.test(ua);
+      return iOS && webkit && notChrome;
+    }
+
+    // Navigation scrolling with iOS Safari iframe support
     function scrollToSection(id) {
       const element = document.getElementById(id);
       if (element) {
-        closeMobileMenu();
-        
         const nav = document.getElementById('nav');
         const navHeight = nav ? nav.offsetHeight : 80;
         
-        // Wait for menu to close
-        setTimeout(function() {
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-          
-          // Smooth scroll that works in both desktop and mobile
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }, 100);
+        closeMobileMenu();
+        
+        // iOS Safari in iframe needs special handling
+        if (isIOSSafari()) {
+          setTimeout(function() {
+            const yOffset = -navHeight;
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            
+            // Use instant scroll on iOS Safari to avoid stuck behavior
+            window.scrollTo(0, y);
+            
+            // Force a repaint
+            document.body.style.overflow = 'hidden';
+            setTimeout(function() {
+              document.body.style.overflow = '';
+            }, 10);
+          }, 350);
+        } else {
+          // Desktop and other browsers - use smooth scroll
+          setTimeout(function() {
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }, 100);
+        }
       }
+    }
+
+    // Handle mailto for iOS Safari in iframe
+    function openEmail(emailHref) {
+      if (isIOSSafari()) {
+        // For iOS Safari, open in new window then close it
+        const mailWindow = window.open(emailHref, '_blank');
+        setTimeout(function() {
+          if (mailWindow) mailWindow.close();
+        }, 500);
+      } else {
+        window.location.href = emailHref;
+      }
+      return false;
     }
 
     function toggleMobileMenu() {
