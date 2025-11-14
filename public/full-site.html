@@ -1074,11 +1074,11 @@
   
       <!-- Mobile Menu -->
       <div class="mobile-menu" id="mobile-menu">
-        <a href="#home" onclick="closeMobileMenu()">Home</a>
-        <a href="#services" onclick="closeMobileMenu()">Services</a>
-        <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
-        <a href="#about" onclick="closeMobileMenu()">About</a>
-        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+        <a href="#home" onclick="handleMobileNavClick(event, 'home')">Home</a>
+        <a href="#services" onclick="handleMobileNavClick(event, 'services')">Services</a>
+        <a href="#portfolio" onclick="handleMobileNavClick(event, 'portfolio')">Portfolio</a>
+        <a href="#about" onclick="handleMobileNavClick(event, 'about')">About</a>
+        <a href="#contact" onclick="handleMobileNavClick(event, 'contact')">Contact</a>
   
         <!-- Updated Mobile Get Quote Email Button -->
         <a 
@@ -1513,6 +1513,32 @@
     function closeMobileMenu() {
       const menu = document.getElementById('mobile-menu');
       menu.classList.remove('open');
+    }
+
+    // Detect if running on iPhone
+    function isIPhone() {
+      return /iPhone/.test(navigator.userAgent);
+    }
+
+    // Handle mobile navigation clicks - sends postMessage to Wix on iPhone
+    function handleMobileNavClick(event, sectionId) {
+      closeMobileMenu();
+      
+      // Check if we're in an iframe on iPhone
+      if (isIPhone() && window.parent !== window) {
+        event.preventDefault();
+        
+        // Send postMessage to parent Wix page
+        window.parent.postMessage({
+          type: 'scrollToSection',
+          section: sectionId
+        }, '*');
+        
+        return false;
+      }
+      
+      // For non-iPhone or non-iframe, allow default anchor behavior
+      return true;
     }
 
     // Scroll effect
