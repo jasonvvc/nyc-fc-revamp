@@ -1493,39 +1493,30 @@
       return iOS && webkit && notChrome;
     }
 
-    // Navigation scrolling - works in iframe on all devices
+    // Navigation scrolling
     function scrollToSection(id) {
       const element = document.getElementById(id);
       if (!element) return;
       
-      const nav = document.getElementById('nav');
-      const navHeight = nav ? nav.offsetHeight : 80;
-      
-      // Close menu first
+      // Close mobile menu first
       closeMobileMenu();
       
-      // Wait a bit for menu animation
+      // Small delay to let menu close
       setTimeout(function() {
-        // Calculate position
-        const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementTop - navHeight;
-        
-        // iOS Safari in iframe - use instant scroll
         if (isIOSSafari()) {
-          window.scrollTo(0, offsetPosition);
+          // iOS Safari - use simple offset scroll
+          const nav = document.getElementById('nav');
+          const navHeight = nav ? nav.offsetHeight : 80;
+          const y = element.getBoundingClientRect().top + window.pageYOffset - navHeight;
+          window.scrollTo(0, y);
         } else {
-          // Desktop and other browsers - smooth scroll
-          try {
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-          } catch (e) {
-            // Fallback for browsers that don't support smooth scroll
-            window.scrollTo(0, offsetPosition);
-          }
+          // Desktop and other browsers - use scrollIntoView
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
         }
-      }, 200);
+      }, 250);
     }
 
     // Handle mailto for iOS Safari in iframe
