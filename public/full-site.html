@@ -1493,6 +1493,12 @@
       return iOS && webkit && notChrome;
     }
 
+    // Detect any mobile device
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+             (window.innerWidth <= 768);
+    }
+
     // Navigation scrolling
     function scrollToSection(id) {
       const element = document.getElementById(id);
@@ -1503,14 +1509,34 @@
       
       // Small delay to let menu close
       setTimeout(function() {
-        if (isIOSSafari()) {
-          // iOS Safari - use simple offset scroll
-          const nav = document.getElementById('nav');
-          const navHeight = nav ? nav.offsetHeight : 80;
-          const y = element.getBoundingClientRect().top + window.pageYOffset - navHeight;
-          window.scrollTo(0, y);
+        const nav = document.getElementById('nav');
+        const navHeight = nav ? nav.offsetHeight : 80;
+        
+        if (isMobileDevice()) {
+          // Mobile devices including iPhone Safari in iframe
+          // Use direct element offset calculation
+          let elementTop = 0;
+          let currentElement = element;
+          
+          // Calculate absolute position
+          while(currentElement) {
+            elementTop += currentElement.offsetTop;
+            currentElement = currentElement.offsetParent;
+          }
+          
+          // Scroll to calculated position
+          const scrollPosition = elementTop - navHeight;
+          window.scrollTo(0, scrollPosition);
+          
+          // Force browser to recognize scroll completion
+          setTimeout(function() {
+            document.body.style.webkitTransform = 'translateZ(0)';
+            setTimeout(function() {
+              document.body.style.webkitTransform = '';
+            }, 10);
+          }, 100);
         } else {
-          // Desktop and other browsers - use scrollIntoView
+          // Desktop - use scrollIntoView
           element.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
