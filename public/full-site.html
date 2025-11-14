@@ -61,11 +61,18 @@
       right: 0; 
       z-index: 1000; 
       transition: all 0.3s;
-      background: hsl(var(--background));
+      background: hsla(var(--background), 0.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid hsl(var(--border));
     }
     nav.scrolled { 
+      background: hsl(var(--background));
       box-shadow: var(--shadow-md); 
+    }
+    
+    /* Scroll offset for anchor links */
+    section {
+      scroll-margin-top: 80px;
     }
     .nav-content { 
       display: flex; 
@@ -114,29 +121,28 @@
       align-items: center; 
       gap: 2rem; 
     }
-    .nav-links button { 
+    .nav-links a:not(.btn) { 
       color: hsl(var(--foreground)); 
       background: none;
-      border: none;
+      text-decoration: none;
       font-weight: 500; 
       font-size: 1.125rem; 
       position: relative; 
       transition: color 0.3s;
       cursor: pointer;
-      font-family: inherit;
     }
-    .nav-links button:not(.btn):hover { color: hsl(var(--primary)); }
-    .nav-links button:not(.btn)::after {
+    .nav-links a:not(.btn):hover { color: hsl(var(--primary)); }
+    .nav-links a:not(.btn)::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -5px;
       left: 0;
       width: 0;
       height: 2px;
       background: hsl(var(--primary));
       transition: width 0.3s;
     }
-    .nav-links button:not(.btn):hover::after {
+    .nav-links a:not(.btn):hover::after {
       width: 100%;
     }
     .mobile-menu-btn { 
@@ -162,22 +168,20 @@
       backdrop-filter: blur(12px);
     }
     .mobile-menu.open { display: block; }
-    .mobile-menu button { 
+    .mobile-menu a:not(.btn) { 
       display: block; 
       width: 100%;
       padding: 0.75rem 1rem; 
       color: hsl(var(--foreground)); 
-      background: none;
-      border: none;
+      text-decoration: none;
       text-align: left;
       font-weight: 500;
       font-size: 1.125rem;
       cursor: pointer;
       border-radius: 8px;
       transition: all 0.3s;
-      font-family: inherit;
     }
-    .mobile-menu button:hover {
+    .mobile-menu a:not(.btn):hover {
       background: hsl(var(--muted));
       color: hsl(var(--primary));
     }
@@ -1040,11 +1044,11 @@
         </a>
   
         <div class="nav-links">
-          <button onclick="scrollToSection('home')">Home</button>
-          <button onclick="scrollToSection('services')">Services</button>
-          <button onclick="scrollToSection('portfolio')">Portfolio</button>
-          <button onclick="scrollToSection('about')">About</button>
-          <button onclick="scrollToSection('contact')">Contact</button>
+          <a href="#home" onclick="return handleNavClick(event, 'home')">Home</a>
+          <a href="#services" onclick="return handleNavClick(event, 'services')">Services</a>
+          <a href="#portfolio" onclick="return handleNavClick(event, 'portfolio')">Portfolio</a>
+          <a href="#about" onclick="return handleNavClick(event, 'about')">About</a>
+          <a href="#contact" onclick="return handleNavClick(event, 'contact')">Contact</a>
   
           <!-- Updated Get Quote Email Button -->
           <a 
@@ -1067,11 +1071,11 @@
   
       <!-- Mobile Menu -->
       <div class="mobile-menu" id="mobile-menu">
-        <button onclick="scrollToSection('home')">Home</button>
-        <button onclick="scrollToSection('services')">Services</button>
-        <button onclick="scrollToSection('portfolio')">Portfolio</button>
-        <button onclick="scrollToSection('about')">About</button>
-        <button onclick="scrollToSection('contact')">Contact</button>
+        <a href="#home" onclick="return handleNavClick(event, 'home')">Home</a>
+        <a href="#services" onclick="return handleNavClick(event, 'services')">Services</a>
+        <a href="#portfolio" onclick="return handleNavClick(event, 'portfolio')">Portfolio</a>
+        <a href="#about" onclick="return handleNavClick(event, 'about')">About</a>
+        <a href="#contact" onclick="return handleNavClick(event, 'contact')">Contact</a>
   
         <!-- Updated Mobile Get Quote Email Button -->
         <a 
@@ -1484,65 +1488,34 @@
 
     let currentFilter = 'All';
 
-    // Detect iOS Safari
-    function isIOSSafari() {
-      const ua = navigator.userAgent;
-      const iOS = /iPad|iPhone|iPod/.test(ua);
-      const webkit = /WebKit/.test(ua);
-      const notChrome = !/CriOS/.test(ua);
-      return iOS && webkit && notChrome;
-    }
-
-    // Detect any mobile device
+    // Detect mobile device
     function isMobileDevice() {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
              (window.innerWidth <= 768);
     }
 
-    // Navigation scrolling
-    function scrollToSection(id) {
-      const element = document.getElementById(id);
-      if (!element) return;
-      
-      // Close mobile menu first
+    // Handle navigation clicks - uses anchor navigation for mobile reliability in iframe
+    function handleNavClick(event, id) {
       closeMobileMenu();
       
-      // Small delay to let menu close
-      setTimeout(function() {
-        const nav = document.getElementById('nav');
-        const navHeight = nav ? nav.offsetHeight : 80;
-        
-        if (isMobileDevice()) {
-          // Mobile devices including iPhone Safari in iframe
-          // Use direct element offset calculation
-          let elementTop = 0;
-          let currentElement = element;
-          
-          // Calculate absolute position
-          while(currentElement) {
-            elementTop += currentElement.offsetTop;
-            currentElement = currentElement.offsetParent;
-          }
-          
-          // Scroll to calculated position
-          const scrollPosition = elementTop - navHeight;
-          window.scrollTo(0, scrollPosition);
-          
-          // Force browser to recognize scroll completion
-          setTimeout(function() {
-            document.body.style.webkitTransform = 'translateZ(0)';
-            setTimeout(function() {
-              document.body.style.webkitTransform = '';
-            }, 10);
-          }, 100);
-        } else {
-          // Desktop - use scrollIntoView
-          element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      }, 250);
+      const element = document.getElementById(id);
+      if (!element) return true; // Let default anchor behavior work
+      
+      const isMobile = isMobileDevice();
+      
+      if (isMobile) {
+        // On mobile (especially iPhone Safari in iframe), use native anchor behavior
+        // Just close menu and let browser handle the scroll via anchor
+        return true; // Allow default anchor navigation
+      } else {
+        // On desktop, prevent default and use smooth scroll
+        event.preventDefault();
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        return false;
+      }
     }
 
     // Handle mailto for iOS Safari in iframe
