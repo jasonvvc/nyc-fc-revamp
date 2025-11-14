@@ -42,6 +42,7 @@
       width: 100%;
       height: auto;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
     
     body {
@@ -55,24 +56,26 @@
 
     /* Navigation */
     nav { 
-      position: sticky; 
+      position: fixed; 
       top: 0; 
       left: 0; 
       right: 0; 
+      width: 100%;
       z-index: 1000; 
       transition: all 0.3s;
-      background: hsla(var(--background), 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid hsl(var(--border));
-    }
-    nav.scrolled { 
       background: hsl(var(--background));
-      box-shadow: var(--shadow-md); 
+      border-bottom: 1px solid hsl(var(--border));
+      box-shadow: var(--shadow-md);
+    }
+    
+    /* Add padding to body to account for fixed nav */
+    body {
+      padding-top: 80px;
     }
     
     /* Scroll offset for anchor links */
     section {
-      scroll-margin-top: 80px;
+      scroll-margin-top: 100px;
     }
     .nav-content { 
       display: flex; 
@@ -1044,11 +1047,11 @@
         </a>
   
         <div class="nav-links">
-          <a href="#home" onclick="return handleNavClick(event, 'home')">Home</a>
-          <a href="#services" onclick="return handleNavClick(event, 'services')">Services</a>
-          <a href="#portfolio" onclick="return handleNavClick(event, 'portfolio')">Portfolio</a>
-          <a href="#about" onclick="return handleNavClick(event, 'about')">About</a>
-          <a href="#contact" onclick="return handleNavClick(event, 'contact')">Contact</a>
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
   
           <!-- Updated Get Quote Email Button -->
           <a 
@@ -1071,11 +1074,11 @@
   
       <!-- Mobile Menu -->
       <div class="mobile-menu" id="mobile-menu">
-        <a href="#home" onclick="return handleNavClick(event, 'home')">Home</a>
-        <a href="#services" onclick="return handleNavClick(event, 'services')">Services</a>
-        <a href="#portfolio" onclick="return handleNavClick(event, 'portfolio')">Portfolio</a>
-        <a href="#about" onclick="return handleNavClick(event, 'about')">About</a>
-        <a href="#contact" onclick="return handleNavClick(event, 'contact')">Contact</a>
+        <a href="#home" onclick="closeMobileMenu()">Home</a>
+        <a href="#services" onclick="closeMobileMenu()">Services</a>
+        <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
+        <a href="#about" onclick="closeMobileMenu()">About</a>
+        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
   
         <!-- Updated Mobile Get Quote Email Button -->
         <a 
@@ -1488,40 +1491,10 @@
 
     let currentFilter = 'All';
 
-    // Detect mobile device
-    function isMobileDevice() {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-             (window.innerWidth <= 768);
-    }
-
-    // Handle navigation clicks - uses anchor navigation for mobile reliability in iframe
-    function handleNavClick(event, id) {
-      closeMobileMenu();
-      
-      const element = document.getElementById(id);
-      if (!element) return true; // Let default anchor behavior work
-      
-      const isMobile = isMobileDevice();
-      
-      if (isMobile) {
-        // On mobile (especially iPhone Safari in iframe), use native anchor behavior
-        // Just close menu and let browser handle the scroll via anchor
-        return true; // Allow default anchor navigation
-      } else {
-        // On desktop, prevent default and use smooth scroll
-        event.preventDefault();
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-        return false;
-      }
-    }
-
     // Handle mailto for iOS Safari in iframe
     function openEmail(emailHref) {
-      if (isIOSSafari()) {
-        // For iOS Safari, open in new window then close it
+      const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (iOS) {
         const mailWindow = window.open(emailHref, '_blank');
         setTimeout(function() {
           if (mailWindow) mailWindow.close();
